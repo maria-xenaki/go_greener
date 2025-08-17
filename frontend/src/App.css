@@ -1,0 +1,17 @@
+html, body, #root {
+  height: 100%;
+  margin: 10px; 
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+.hover-white:hover {
+  color: white !important;
+}
