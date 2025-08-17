@@ -1,2 +1,5 @@
 # MySQL Workbench files
 *.mwb*
+
+.idea/
+*.iml
