@@ -1,6 +1,7 @@
 package com.goGreener.eventapp.security;
 
 import com.goGreener.eventapp.service.JwtService;
+import com.goGreener.eventapp.user.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

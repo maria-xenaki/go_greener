@@ -1,6 +1,6 @@
 package com.goGreener.eventapp.service;
 
-import com.goGreener.eventapp.model.User;
+import com.goGreener.eventapp.user.User;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;

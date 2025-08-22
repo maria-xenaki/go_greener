@@ -1,6 +1,4 @@
-package com.goGreener.eventapp.service;
-
-import com.goGreener.eventapp.model.Event;
+package com.goGreener.eventapp.event;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,4 +10,5 @@ public interface EventService {
     List<Event> getUnapprovedEvents();
     void deleteEvent(Long id);
     Event approveEvent(Long id);
+    Event updateEvent(Long id, Event updatedEvent);
 }

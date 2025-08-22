@@ -1,9 +1,7 @@
-package com.goGreener.eventapp.controller;
+package com.goGreener.eventapp.event;
 
-import com.goGreener.eventapp.event.Event;
 import com.goGreener.eventapp.user.User;
 import com.goGreener.eventapp.user.UserRepository;
-import com.goGreener.eventapp.event.EventService;
 import lombok.RequiredArgsConstructor;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -30,6 +28,7 @@ public class EventController {
         System.out.println(" Incoming event: " + event.getTitle());
         System.out.println(" From: " + event.getStartDate() + " To: " + event.getEndDate());
         System.out.println(" Cost: " + event.getCost());
+        System.out.println(" Link: " + event.getLink());
         System.out.println(" Approved? " + event.isApproved());
 
         // Get current logged-in username
@@ -82,23 +81,11 @@ public class EventController {
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Event> updateEvent(@PathVariable Long id, @RequestBody Event updatedEvent) {
-        Optional<Event> optionalEvent = eventService.getEventById(id);
-        if (optionalEvent.isPresent()) {
-            Event existingEvent = optionalEvent.get();
-
-            // Update only the fields you want to allow editing
-            existingEvent.setTitle(updatedEvent.getTitle());
-            existingEvent.setDescription(updatedEvent.getDescription());
-            existingEvent.setStartDate(updatedEvent.getStartDate());
-            existingEvent.setEndDate(updatedEvent.getEndDate());
-            existingEvent.setCost(updatedEvent.getCost());
-
-            Event savedEvent = eventService.createEvent(existingEvent); // Save updated
+        try {
+            Event savedEvent = eventService.updateEvent(id,updatedEvent);
             return ResponseEntity.ok(savedEvent);
-        } else {
+        } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
     }
-
-
 }

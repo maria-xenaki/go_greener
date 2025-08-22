@@ -2,8 +2,8 @@ package com.goGreener.eventapp.controller;
 
 import com.goGreener.eventapp.dto.RegisterRequest;
 import com.goGreener.eventapp.emailverification.EmailVerificationService;
-import com.goGreener.eventapp.model.User;
-import com.goGreener.eventapp.repository.UserRepository;
+import com.goGreener.eventapp.user.User;
+import com.goGreener.eventapp.user.UserRepository;
 import com.goGreener.eventapp.service.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

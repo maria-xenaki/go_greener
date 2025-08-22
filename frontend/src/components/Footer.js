@@ -4,8 +4,8 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-dark text-white py-3 mt-auto mb-4">
-      <Container>
+    <footer className="bg-dark text-white py-3 mt-auto mb-4 w-100">
+      <div className='w-100'>
         <Row className="justify-content-center">
           <Col className="text-center mb-3">
             <Nav className="justify-content-center gap-3">
@@ -20,26 +20,9 @@ const Footer = () => {
             Copyright © {currentYear}, GoGreener. All rights reserved.
           </Col>
         </Row>
-      </Container>
+      </div>
     </footer>
   );
 };
 
 export default Footer;
-
-
-// const Footer = () => {
-//   const currentYear = new Date().getFullYear();
-
-//   return (
-//   <>
-//     <footer className="bg-dark  py-3 mt-auto mb-4">
-//       <div className="text-white text-center py-4">
-//         Copyright © {currentYear}, GoGreener. All rights reserved.
-//       </div>
-//     </footer>
-//   </>
-//   )
-// }
-
-// export default Footer;

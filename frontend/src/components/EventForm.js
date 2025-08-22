@@ -6,7 +6,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { createEvent } from "../api";
 import { Row, Col } from 'react-bootstrap';
 
-const predefinedTags = [ "Art", "Activism","Animals", "Cleanup","Festival", "Forests", "Green Tech", "Seminar", "Urban Gardening", "Volunteer", "Wildlife", "Workshop", "Zero Waste", "Other"]
+const predefinedTags = [ "Art", "Activism","Animals", "Cleanup","Festival", "Forests", "Green Tech", "Seminar", "Urban Gardening", "Volunteering", "Wildlife", "Workshop", "Zero Waste", "Other"]
 
 const EventForm = () => {
     const [title, setTitle] = useState("");
@@ -14,6 +14,7 @@ const EventForm = () => {
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [cost,setCost] = useState("");
+    const [link, setLink] = useState("");
     const [tags, setTags] = useState([]);
 
 const handleTag = (tag) => {
@@ -23,12 +24,28 @@ const handleTag = (tag) => {
         : [...prev, tag]
     );
 };
+ const formatDate = (date) => {
+        const d = new Date(date);
+        const month = `${d.getMonth() + 1}`.padStart(2, '0');
+        const day = `${d.getDate()}`.padStart(2, '0');
+        const year = d.getFullYear();
+        return `${year}-${month}-${day}`;
+    };
+
+const handleLinkChange = (e) => {
+  let value = e.target.value;
+  if (value && !value.startsWith("http://") && !value.startsWith("https://")) {
+    value = "https://" + value;
+  }
+  setLink(value);
+};
+
 
 const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!startDate || !endDate) {
-            alert("Please select both start and end dates.");
+            alert("Please select Start and End dates.");
             return;
         }
 
@@ -41,10 +58,10 @@ const handleSubmit = async (e) => {
             const eventData = {
                 title,
                 description,
-                startDate: startDate.toISOString().split('T')[0],
-                endDate: endDate.toISOString().split('T')[0], //we separate date and time, to get only Date.
+                startDate: formatDate(startDate),
+                endDate: formatDate(endDate),
                 cost: parseFloat(cost),
-                tags,
+                tags: tags.map(tag => ({ name: tag })),
                 approved: false
             };
 
@@ -58,6 +75,7 @@ const handleSubmit = async (e) => {
             setEndDate(null);
             //setIsFree(false);
             setCost("");
+            setLink("")
             setTags([]);
         } catch (error) {
             console.error(error);
@@ -80,7 +98,6 @@ const handleSubmit = async (e) => {
                     required
                     className="form-control mb-3"
                 />
-
                 <textarea
                     placeholder="Event Description"
                     value={description}
@@ -122,34 +139,34 @@ const handleSubmit = async (e) => {
                     placeholder="Cost"
                     className="form-control mb-3"
                 />
+                <input
+                    type="url"
+                    placeholder="Event Link"
+                    value={link}
+                    onChange={handleLinkChange}
+                    required
+                    className="form-control mb-3"
+                    style={{ minWidth: "300px", overflowX: "auto" }}
+                />
 
                 <div className="mb-3">
                     <label>Tags:</label>
                     <div className="mt-2">
                         <Row>
                              {predefinedTags.map((tag, index) => (
-        <Col key={tag} xs={12} sm={6} md={4} className="mb-2">
-          <div className="form-check">
-            <input
-              className="form-check-input me-1"
-              type="checkbox"
-              id={tag}
-              checked={tags.includes(tag)}
-              onChange={() => handleTag(tag)}
-            />
-                            {/* {predefinedTags.map(tag => (
-                                <div key={tag}>
-                                    <input
+                                <Col key={tag} xs={12} sm={6} md={4} className="mb-2">
+                                    <div className="form-check">
+                                        <input
                                         className="form-check-input me-1"
                                         type="checkbox"
                                         id={tag}
                                         checked={tags.includes(tag)}
                                         onChange={() => handleTag(tag)}
-                                    /> */}
-                                    <label htmlFor={tag} className="form-check-label">
-                                        {tag}
-                                    </label>
-                                </div>
+                                        />
+                                        <label htmlFor={tag} className="form-check-label">
+                                            {tag}
+                                        </label>
+                                    </div>
                                 </Col>
                             ))}
                         </Row>

@@ -1,6 +1,7 @@
 package com.goGreener.eventapp.security;
 
 import com.goGreener.eventapp.service.JwtService;
+import com.goGreener.eventapp.user.UserDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

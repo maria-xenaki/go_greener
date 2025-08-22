@@ -11,6 +11,7 @@ import RegisterForm from './components/RegisterForm';
 import VerifyEmail from './pages/VerifyEmail';
 import ContactUs from './pages/ContactUs';
 import AboutUs from './pages/AboutUs';
+import EventsPage from './pages/EventsPage';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <main>
           <Routes>
               <Route path = "/" element={<HomePage/>} />
+              <Route path = "/events" element={<EventsPage/>} />
               <Route path = "/auth" element={<AuthPage/>} />
               <Route path = "/register" element={<RegisterForm/>} />
               <Route path = "/new-event" element={<EventForm/>} />

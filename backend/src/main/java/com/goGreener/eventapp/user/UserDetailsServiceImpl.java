@@ -1,7 +1,5 @@
-package com.goGreener.eventapp.security;
+package com.goGreener.eventapp.user;
 
-import com.goGreener.eventapp.model.User;
-import com.goGreener.eventapp.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,7 +1,7 @@
 package com.goGreener.eventapp.emailverification;
 
-import com.goGreener.eventapp.model.User;
-import com.goGreener.eventapp.repository.UserRepository;
+import com.goGreener.eventapp.user.User;
+import com.goGreener.eventapp.user.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

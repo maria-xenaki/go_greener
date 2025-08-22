@@ -1,6 +1,4 @@
-package com.goGreener.eventapp.service;
-
-import com.goGreener.eventapp.model.User;
+package com.goGreener.eventapp.user;
 
 import java.util.Optional;
 import java.util.List;

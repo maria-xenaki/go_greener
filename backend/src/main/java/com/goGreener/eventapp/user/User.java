@@ -1,4 +1,4 @@
-package com.goGreener.eventapp.model;
+package com.goGreener.eventapp.user;
 
 import jakarta.persistence.*;
 import lombok.*;

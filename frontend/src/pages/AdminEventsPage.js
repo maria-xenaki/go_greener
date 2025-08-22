@@ -10,7 +10,9 @@ const AdminEventsPage = () => {
         description: '',
         startDate: '',
         endDate: '',
-        cost: ''
+        cost: '',
+        link: '',
+        tags: []
     });
     
     useEffect(() =>{
@@ -53,7 +55,9 @@ const AdminEventsPage = () => {
         description: event.description,
         startDate: event.startDate,
         endDate: event.endDate,
-        cost: event.cost
+        cost: event.cost,
+        link: event.link,
+        tags: event.tags.map(t => t.name) || []
     });
 };
 
@@ -64,7 +68,11 @@ const handleChange = (e) => {
 
 const handleUpdate = async (id) => {
     try {
-        const updatedEvent = await updateEvent(id, formData);
+        const payload = {
+            ...formData,
+            tags: formData.tags.map(name => ({ name }))  // wrap in objects
+        };
+        const updatedEvent = await updateEvent(id, payload);
         setEvents(prev => prev.map(ev => ev.id === id ? updatedEvent : ev));
         setEditingEvent(null);
     } catch (error) {
@@ -89,9 +97,36 @@ const handleUpdate = async (id) => {
                 <input type="date" name="startDate" value={formData.startDate} onChange={handleChange} className="form-control mb-2" />
                 <input type="date" name="endDate" value={formData.endDate} onChange={handleChange} className="form-control mb-2" />
                 <input type="number" name="cost" value={formData.cost} onChange={handleChange} className="form-control mb-2" />
+                <input type="url" name="link" value={formData.link} onChange={handleChange} className='form-control mb-2'/>
                 <div className="d-flex gap-2">
                     <button onClick={() => handleUpdate(event.id)} className="btn btn-primary">Save</button>
                     <button onClick={() => setEditingEvent(null)} className="btn btn-secondary">Cancel</button>
+                </div>
+                <div className="mb-2">
+                    <label>Edit Tags:</label>
+                    <div className="d-flex flex-wrap gap-2">
+                        {["Art", "Activism", "Animals", "Cleanup", "Festival", "Forests", "Green Tech", "Seminar", "Urban Gardening", "Volunteering", "Wildlife", "Workshop", "Zero Waste", "Other"].map(tag => (
+                            <div key={tag} className="form-check">
+                                <input
+                                    type="checkbox"
+                                    className="form-check-input"
+                                    id={`${event.id}-${tag}`}
+                                    checked={formData.tags.includes(tag)}
+                                    onChange={() =>
+                                        setFormData(prev => ({
+                                            ...prev,
+                                            tags: prev.tags.includes(tag)
+                                                ? prev.tags.filter(t => t !== tag)
+                                                : [...prev.tags, tag]
+                                        }))
+                                    }
+                                />
+                                <label htmlFor={`${event.id}-${tag}`} className="form-check-label">
+                                    {tag}
+                                </label>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </>
                         ) : (
@@ -99,7 +134,14 @@ const handleUpdate = async (id) => {
                         <h4>{event.title}</h4>
                         <p>{event.description}</p>
                         <p><strong>From:</strong> {format(new Date(event.startDate), 'dd/MM/yyyy')} <strong>To:</strong> {format(new Date(event.endDate), 'dd/MM/yyyy')}</p>
-                        <p><strong>Cost:</strong> ${event.cost}</p>
+                        <p><strong>Cost:</strong> {event.cost} €</p>
+                        <p><strong>Link:</strong> {event.link}</p>
+                        {event.tags && event.tags.length > 0 && (
+                            <p>
+                                <strong>Tags:</strong> {event.tags.map(t => t.name).join(", ")}
+                            </p>
+                        )}
+
                         <div className="d-flex gap-2">
                             <button onClick={() => handleApprove(event.id)} className="btn btn-success">Approve</button>
                             <button onClick={() => handleEditClick(event)} className="btn btn-warning">Edit</button>

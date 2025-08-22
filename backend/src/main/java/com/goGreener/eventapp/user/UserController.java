@@ -1,7 +1,5 @@
-package com.goGreener.eventapp.controller;
+package com.goGreener.eventapp.user;
 
-import com.goGreener.eventapp.model.User;
-import com.goGreener.eventapp.service.UserService;
 import lombok.RequiredArgsConstructor;
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,5 @@
-package com.goGreener.eventapp.repository;
+package com.goGreener.eventapp.user;
 
-import com.goGreener.eventapp.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
