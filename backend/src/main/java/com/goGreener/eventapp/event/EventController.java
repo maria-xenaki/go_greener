@@ -1,9 +1,9 @@
 package com.goGreener.eventapp.controller;
 
-import com.goGreener.eventapp.model.Event;
-import com.goGreener.eventapp.model.User;
-import com.goGreener.eventapp.repository.UserRepository;
-import com.goGreener.eventapp.service.EventService;
+import com.goGreener.eventapp.event.Event;
+import com.goGreener.eventapp.user.User;
+import com.goGreener.eventapp.user.UserRepository;
+import com.goGreener.eventapp.event.EventService;
 import lombok.RequiredArgsConstructor;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.core.annotation.AuthenticationPrincipal;

@@ -1,5 +1,6 @@
 package com.goGreener.eventapp.model;
 
+import com.goGreener.eventapp.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
