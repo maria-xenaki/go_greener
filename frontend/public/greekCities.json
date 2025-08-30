@@ -1,0 +1,6 @@
+[
+  { "id": 1, "name": { "el": "Αθήνα", "en": "Athens" } },
+  { "id": 2, "name": { "el": "Θεσσαλονίκη", "en": "Thessaloniki" } },
+  { "id": 3, "name": { "el": "Πάτρα", "en": "Patras" } },
+  { "id": 4, "name": { "el": "Ηράκλειο", "en": "Heraklion" } }
+]

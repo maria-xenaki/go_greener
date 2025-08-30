@@ -11,4 +11,10 @@ public interface EventService {
     void deleteEvent(Long id);
     Event approveEvent(Long id);
     Event updateEvent(Long id, Event updatedEvent);
+
+    //ta teleutaia tou unified
+    //List<Event> findByApprovedTrue();
+
+    List<Event> findApprovedEvents();
+
 }

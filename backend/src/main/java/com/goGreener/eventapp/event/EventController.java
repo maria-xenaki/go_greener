@@ -88,4 +88,10 @@ public class EventController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    //ta teleutaia tou Unified
+    @GetMapping("/approved")
+    public List<Event> getApprovedEvents() {
+        return eventService.findApprovedEvents();
+    }
 }

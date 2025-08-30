@@ -1,0 +1,141 @@
+import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { Button, Modal } from "react-bootstrap";
+
+export default function ResetPasswordForm() {
+    const [formData, setFormData] = useState({
+        email: "",
+        newPassword: "",
+        confirmPassword: ""
+    });
+    const [message, setMessage] = useState("");
+    const [showModal, setShowModal] = useState(false);
+    const [emailSent, setEmailSent] = useState(false);
+
+    const [searchParams] = useSearchParams();
+    const token = searchParams.get("token"); // If URL has token → show reset password
+
+    const handleChange = (e) => {
+        setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    };
+
+    // --- Forgot Password ---
+    const handleRequestReset = async (e) => {
+        e.preventDefault();
+        try {
+            const res = await fetch(
+                `http://localhost:8080/auth/password/request?email=${formData.email}`,
+                { method: "POST" }
+            );
+            const text = await res.text();
+            setMessage(text);
+            setEmailSent(true);
+            setShowModal(true);
+        } catch (err) {
+            setMessage("Failed to send reset email.");
+            setShowModal(true);
+        }
+    };
+
+    // --- Reset Password ---
+   const handleResetPassword = async (e) => {
+    e.preventDefault();
+    if (formData.newPassword !== formData.confirmPassword) {
+        setMessage("Passwords do not match.");
+        setShowModal(true);
+        return;
+    }
+    try {
+        const res = await fetch(
+            `http://localhost:8080/auth/password/reset?token=${token}&newPassword=${formData.newPassword}`,
+            { method: "POST" }
+        );
+        const text = await res.text();
+
+        setMessage(text);       // show the message from backend
+        setShowModal(true);     // open modal
+
+        if (res.ok) {
+            // redirect after 2 seconds
+            setTimeout(() => {
+                window.location.href = "/login";
+            }, 2000);
+        }
+    } catch (err) {
+        setMessage("Failed to reset password.");
+        setShowModal(true);
+    }
+};
+
+
+    // --- Modal Component ---
+    const renderModal = () => (
+        <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+            <Modal.Header closeButton>
+                <Modal.Title>{token ? "Password Reset Status" : "Forgot Password Status"}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                {message}
+                {!token && emailSent && <p className="mt-2">Check your email for the reset link!</p>}
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={() => setShowModal(false)}>Close</Button>
+            </Modal.Footer>
+        </Modal>
+    );
+
+    // --- Render Reset Password Form ---
+    if (token) {
+        return (
+            <>
+                <form onSubmit={handleResetPassword} className="container" style={{ maxWidth: '400px' }}>
+                    <div className="mb-3">
+                        <input
+                            type="password"
+                            name="newPassword"
+                            placeholder="Enter new password"
+                            value={formData.newPassword}
+                            onChange={handleChange}
+                            required
+                            className="form-control"
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <input
+                            type="password"
+                            name="confirmPassword"
+                            placeholder="Confirm new password"
+                            value={formData.confirmPassword}
+                            onChange={handleChange}
+                            required
+                            className="form-control"
+                        />
+                    </div>
+                    <Button type="submit" className="w-100 btn-success">Reset Password</Button>
+                </form>
+                {renderModal()}
+            </>
+        );
+    }
+
+    // --- Render Forgot Password Form ---
+    return (
+        <>
+            <form onSubmit={handleRequestReset} className="container" style={{ maxWidth: '400px' }}>
+                <div className="mb-3">
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                        className="form-control"
+                    />
+                </div>
+                <Button type="submit" className="w-100 btn-success">Send Reset Link</Button>
+            </form>
+            {renderModal()}
+        </>
+    );
+}

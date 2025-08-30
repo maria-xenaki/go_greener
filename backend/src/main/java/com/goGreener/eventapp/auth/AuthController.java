@@ -1,5 +1,6 @@
-package com.goGreener.eventapp.controller;
+package com.goGreener.eventapp.auth;
 
+import com.goGreener.eventapp.dto.ErrorResponse;
 import com.goGreener.eventapp.dto.RegisterRequest;
 import com.goGreener.eventapp.emailverification.EmailVerificationService;
 import com.goGreener.eventapp.user.User;
@@ -55,15 +56,20 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         User existing = userRepository.findByUsername(loginRequest.username)
                 .orElse(null);
-        if (existing == null || !passwordEncoder.matches(loginRequest.password, existing.getPassword())) {
-            return ResponseEntity.status(401).body(null);
+
+        if (existing == null) {
+            return ResponseEntity.status(401).body(new ErrorResponse("Username not found."));
+        }
+
+        if (!passwordEncoder.matches(loginRequest.password, existing.getPassword())) {
+            return ResponseEntity.status(401).body(new ErrorResponse("Wrong password."));
         }
 
         if (!existing.isEnabled()) {
-            return ResponseEntity.status(403).body(null);
+            return ResponseEntity.status(403).body(new ErrorResponse("Account not verified. Please check your email."));
         }
 
         String token = jwtService.generateToken(existing);

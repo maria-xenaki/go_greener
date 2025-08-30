@@ -4,10 +4,10 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-dark text-white py-3 mt-auto mb-4 w-100">
-      <div className='w-100'>
-        <Row className="justify-content-center">
-          <Col className="text-center mb-3">
+    <footer className="footer bg-dark text-white py-3 w-100">
+      <Container fluid className='p-0'>
+        <Row className="justify-content-center mb-2 mx-0">
+          <Col xs="auto" className="text-center mb-3">
             <Nav className="justify-content-center gap-3">
               <Nav.Link href="/about" className="text-white">About Us</Nav.Link>
               <Nav.Link href="/contact" className="text-white">Contact Us</Nav.Link>
@@ -17,12 +17,14 @@ const Footer = () => {
         </Row>
         <Row>
           <Col className="text-center">
-            Copyright © {currentYear}, GoGreener. All rights reserved.
+            <h7>Copyright © {currentYear}, GoGreener. All rights reserved.</h7>
           </Col>
         </Row>
-      </div>
+      </Container>
     </footer>
   );
 };
 
 export default Footer;
+
+

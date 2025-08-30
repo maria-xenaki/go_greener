@@ -75,16 +75,18 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Event updateEvent(Long id, Event updatedEvent) {
-        Event existingEvent = eventRepository.findById(id)
+        Event e = eventRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Event not found"));
 
-        existingEvent.setTitle(updatedEvent.getTitle());
-        existingEvent.setDescription(updatedEvent.getDescription());
-        existingEvent.setStartDate(updatedEvent.getStartDate());
-        existingEvent.setEndDate(updatedEvent.getEndDate());
-        existingEvent.setCost(updatedEvent.getCost());
-        existingEvent.setLink(updatedEvent.getLink());
-        existingEvent.setFree(updatedEvent.getCost() == 0);
+        e.setTitle(updatedEvent.getTitle());
+        e.setDescription(updatedEvent.getDescription());
+        e.setStartDate(updatedEvent.getStartDate());
+        e.setEndDate(updatedEvent.getEndDate());
+        e.setCost(updatedEvent.getCost());
+        e.setLink(updatedEvent.getLink());
+        e.setFree(updatedEvent.getCost() == 0);
+        e.setCity(updatedEvent.getCity());
+        e.setAddress(updatedEvent.getAddress());
 
         // Handle tags properly
         List<Tag> resolvedTags = new ArrayList<>();
@@ -96,10 +98,15 @@ public class EventServiceImpl implements EventService {
                 resolvedTags.add(resolved);
             }
         }
-        existingEvent.setTags(resolvedTags);
+        e.setTags(resolvedTags);
 
         // Do NOT reset 'approved' status here
-        return eventRepository.save(existingEvent);
+        return eventRepository.save(e);
+    }
+
+    //ta teleutaia tou Unified
+    public List<Event> findApprovedEvents() {
+        return eventRepository.findByApprovedTrue();
     }
 
 

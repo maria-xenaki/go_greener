@@ -39,10 +39,10 @@ public class User implements UserDetails {
     private boolean emailVerified;
 
     @Column(name = "passw_reset_token")
-    private String passw_reset_token;
+    private String passwordResetToken;
 
     @Column(name = "passw_reset_token_expires")
-    private LocalDateTime passw_reset_token_expires;
+    private LocalDateTime passwordResetTokenExpires;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -71,4 +71,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return this.enabled;
     }
+
+
 }

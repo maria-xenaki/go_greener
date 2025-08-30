@@ -1,7 +1,6 @@
 const AboutUs = () => {
     return (
       <div style={{ textAlign: "center", marginTop: "0.5rem" }}>
-            <h2>About us</h2>
             <div style={{ padding: '2rem' }}>
                 <p>This space was created from the need to find ways to contribute to making our planet a better place.</p>
                 <p>You are more than welcome to make your own contributions!</p>

@@ -36,15 +36,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll();
     }
 
-//    @Override
-//    public User toggleUserEnabled(Long id) {
-//        Optional<User> userOptional = userRepository.findById(id);
-//        if (userOptional.isEmpty()) throw new RuntimeException("User not found");
-//
-//        User user = userOptional.get();
-//        user.setEnabled(!user.isEnabled());
-//        return userRepository.save(user);
-//    }
     @Override
     public Optional<User> toggleUserEnabled(Long id) {
         return userRepository.findById(id).map(user -> {

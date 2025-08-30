@@ -28,15 +28,15 @@ const AdminUsersPage = () => {
 
     return (
         <div className="container mt-4">
-            <h2 className="text-center">Manage Existing Users</h2>
+           
             <table className="table table-striped mt-3">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Username</th>
                         <th>Email</th>
-                        <th>Role</th>
                         <th>Status</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>

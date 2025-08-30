@@ -1,7 +1,10 @@
 package com.goGreener.eventapp.tag;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.goGreener.eventapp.dine.Dine;
 import com.goGreener.eventapp.event.Event;
+import com.goGreener.eventapp.shop.Shop;
+import com.goGreener.eventapp.volunteer.Volunteer;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.List;
@@ -25,6 +28,18 @@ public class Tag {
     @ManyToMany(mappedBy = "tags")
     @JsonIgnore
     private List<Event> events = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "tags")
+    @JsonIgnore
+    private List<Volunteer> volunteers = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "tags")
+    @JsonIgnore
+    private List<Dine> dines = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "tags")
+    @JsonIgnore
+    private List<Shop> shops = new ArrayList<>();
 
     public Tag(Long id, String name) {
         this.id = id;

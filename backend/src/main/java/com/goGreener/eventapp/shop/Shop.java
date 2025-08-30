@@ -1,24 +1,20 @@
-package com.goGreener.eventapp.event;
+package com.goGreener.eventapp.shop;
 
 import com.goGreener.eventapp.user.User;
 import com.goGreener.eventapp.tag.Tag;
 import jakarta.persistence.*;
 import lombok.*;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
 
-
 @Entity
-@Table(name = "events_table")
+@Table(name = "shops_table")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
-public class Event {
+public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,41 +24,24 @@ public class Event {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "is_free", nullable = false)
-    private boolean isFree;
-
-    @Column(nullable = false)
-    private double cost;
-
-    @Column(nullable = false)
     private String city;
 
-    @Column(nullable = true)
-    private String address;
-
-    @Column(nullable = false)
     private String link;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "start_date")
-    private LocalDate startDate;
-
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "end_date")
-    private LocalDate endDate;
+    private String address;
 
     @Column(nullable = false)
     private boolean approved = false;
 
     @ManyToOne
     @JoinColumn(name = "created_by_id", referencedColumnName = "id")
-    @JsonIgnoreProperties({"events", "password"})
+    @JsonIgnoreProperties({"password", "events"})
     private User createdBy;
 
     @ManyToMany
     @JoinTable(
-            name = "event_tags_table",
-            joinColumns = @JoinColumn(name = "event_id"),
+            name = "shop_tags_table",
+            joinColumns = @JoinColumn(name = "shop_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
     private List<Tag> tags = new ArrayList<>();

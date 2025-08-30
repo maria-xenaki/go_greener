@@ -8,10 +8,75 @@ html, body, #root {
   flex-direction: column;
 }
 
+
 main {
   flex: 1;
 }
 
 .hover-white:hover {
   color: white !important;
+}
+
+body {
+  padding-top: 80px;
+}
+
+.darker-outline {
+  border: 2px solid #101011; /* dark gray */
+  border-radius: 0.25rem;    /* match Bootstrap inputs */
+}
+
+.darker-outline:focus {
+  border-color: #070707;     /* darker on focus */
+  box-shadow: none;          /* remove default Bootstrap focus shadow */
+}
+
+/* CalendarView */
+/* ================================
+   WEEK / DAY VIEW AUTO-HEIGHT FIX
+   ================================ */
+
+/* Let the time view shrink to fit content */
+.rbc-time-view {
+  display: block !important;
+  height: auto !important;
+  min-height: 0 !important;
+  flex: none !important;
+}
+
+/* Kill the default grid (time gutter + slots + background) */
+.rbc-time-view .rbc-time-gutter,
+.rbc-time-view .rbc-time-slot,
+.rbc-time-view .rbc-timeslot-group,
+.rbc-time-view .rbc-time-content {
+  display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  flex: none !important;
+}
+
+/* Ensure the events container adapts to its content */
+.rbc-time-view .rbc-events-container {
+  display: block !important;
+  position: relative !important;
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 1rem;
+  flex: none !important;
+}
+
+/* Expand events full width and stack neatly */
+.rbc-time-view .rbc-event {
+  width: 100% !important;
+  left: 0 !important;
+  right: 0 !important;
+  position: relative !important;
+  margin-bottom: 0.5rem;
+}
+
+/* Remove background lines / borders */
+.rbc-time-view .rbc-day-slot,
+.rbc-time-view .rbc-background-event {
+  background: none !important;
+  border: none !important;
 }
