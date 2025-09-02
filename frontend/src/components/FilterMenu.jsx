@@ -3,7 +3,7 @@ import { Dropdown, Form, Button } from "react-bootstrap";
 import { Filter } from "lucide-react";
 
 const FilterMenu = ({ entities, onApply }) => {
-  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedCities, setSelectedCities] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
 
   // Extract available cities and tags
@@ -20,13 +20,19 @@ const FilterMenu = ({ entities, onApply }) => {
     );
   };
 
+  const handleCityToggle = (city) => {
+  setSelectedCities(prev =>
+    prev.includes(city) ? prev.filter(c => c !== city) : [...prev, city]
+  );
+};
+
   const handleApply = () => {
-    onApply({ city: selectedCity, tags: selectedTags });
+    onApply({ city: selectedCities, tags: selectedTags });
   };
 
   return (
     <Dropdown align="end">
-      <Dropdown.Toggle variant="outline-primary" id="filter-dropdown">
+      <Dropdown.Toggle variant="outline-success" id="filter-dropdown">
         <Filter size={16} className="me-1" /> Filter
       </Dropdown.Toggle>
 
@@ -36,11 +42,11 @@ const FilterMenu = ({ entities, onApply }) => {
           {cities.map(city => (
             <Form.Check
               key={city}
-              type="radio"
+              type="checkbox"
               label={city}
               name="city"
-              checked={selectedCity === city}
-              onChange={() => setSelectedCity(city)}
+              checked={selectedCities.includes(city)}
+              onChange={() => handleCityToggle(city)}
             />
           ))}
         </div>
@@ -59,10 +65,10 @@ const FilterMenu = ({ entities, onApply }) => {
         </div>
 
         <div className="d-flex justify-content-between">
-          <Button size="sm" variant="secondary" onClick={() => { setSelectedCity(""); setSelectedTags([]); }}>
+          <Button size="sm" variant="secondary" onClick={() => { setSelectedCities([]); setSelectedTags([]); }}>
             Clear
           </Button>
-          <Button size="sm" variant="primary" onClick={handleApply}>
+          <Button size="sm" variant="success" onClick={handleApply}>
             Apply
           </Button>
         </div>

@@ -86,10 +86,9 @@ const UnifiedList = ({ entities, type, isAdmin, onApprove, onDelete, onUpdate, s
   const paginatedItems = flatItems.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   return (
-    <div className="container mt-4">
+    <div className="">
       {showFilter && 
-        <div className="d-flex justify-content-between align-items-center mb-3">
-          <div></div>
+        <div className="d-flex justify-content-end mb-3" style={{ maxWidth: "1000px", margin: "0 auto" }}>
           <FilterMenu entities={entities} onApply={setFilters} />
         </div>
       }

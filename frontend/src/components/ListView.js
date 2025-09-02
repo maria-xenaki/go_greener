@@ -10,7 +10,7 @@ const ListView = ({ events }) => {
     .sort((a, b) => a.currentDate - b.currentDate); // chronological
 
   return (
-    <div className="container mt-4">
+    <div  >
       {futureEvents.length === 0 ? (
         <p>No upcoming events.</p>
       ) : (

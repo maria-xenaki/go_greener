@@ -1,7 +1,6 @@
 package com.goGreener.eventapp.user;
 
 import lombok.RequiredArgsConstructor;
-//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +29,6 @@ public class UserController {
 
     }
 
-    // Toggle enabled (soft delete)
     @PutMapping("/{id}/toggle-enabled")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<User> toggleUserEnabled(@PathVariable Long id) {
@@ -38,6 +36,13 @@ public class UserController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+//    @GetMapping("/users/{id}/events")
+//    @PreAuthorize("hasRole('ADMIN')")
+//    public List<Event> getEventsByUser(@PathVariable Long id) {
+//        return eventRepository.findByCreatedById(id);
+//    }
+
 }
 
 

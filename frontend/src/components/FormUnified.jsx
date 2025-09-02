@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import { Form, Button, Row, Col } from "react-bootstrap";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { Row, Col } from 'react-bootstrap';
 import { createEntity, updateEvent } from "../api";
 import '../App';
 import { getTagsForType } from "./Tags";
+import ModalComp from "./ModalComp";
 
 const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
@@ -16,7 +15,7 @@ const CityDropdown = ({ value, onChange, language = "en", cities = [] }) => {
       value={value}
       onChange={(e) => onChange(e.target.value)}
       required
-      className="mb-3 darker-outline"
+      className="mb-3"
     >
       <option value="">Select a city</option>
       {cities.map(city => (
@@ -29,6 +28,9 @@ const CityDropdown = ({ value, onChange, language = "en", cities = [] }) => {
 };
 
 const FormUnified = ({ type, language = "en", initialData = null, onSuccess }) => {
+  const [showModal, setShowModal] = useState(false);
+  const [message, setMessage] = useState("");
+
   const [title, setTitle] = useState(initialData?.title || "");
   const [description, setDescription] = useState(initialData?.description || "");
   const [startDate, setStartDate] = useState(initialData?.startDate ? new Date(initialData.startDate) : null);
@@ -64,14 +66,20 @@ const FormUnified = ({ type, language = "en", initialData = null, onSuccess }) =
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (type === "event" && (!startDate || !endDate)) {
-      alert("Please select Start and End dates.");
-      return;
-    }
+
+    const today = new Date();
+    today.setHours(0,0,0,0);
     if (type === "event" && new Date(endDate) < new Date(startDate)) {
-      alert("End date cannot be prior to Start date.");
+      setMessage("End date cannot be prior to Start date.");
+      setShowModal(true);
       return;
     }
+
+    if (type === "event" && startDate < today) {
+    setMessage("Start date cannot be in the past.");
+    setShowModal(true);
+    return;
+  }
 
     const data = {
       title,
@@ -89,11 +97,13 @@ const FormUnified = ({ type, language = "en", initialData = null, onSuccess }) =
     try {
       if (initialData && type === "event") {
         await updateEvent(initialData.id, data);
-        alert("Event updated successfully!");
+        setMessage("Event updated successfully!");
+        setShowModal(true)
       } else {
         await createEntity(type, data);
-        alert(`${type} created successfully!`);
-
+        setMessage(`Your ${capitalize(type)} post has been submitted successfully and is pending admin approval.`);
+        setShowModal(true)
+      
         setTitle("");
         setDescription("");
         setStartDate(null);
@@ -114,27 +124,72 @@ const FormUnified = ({ type, language = "en", initialData = null, onSuccess }) =
   const currentTags = getTagsForType(type);
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <input type="text" value={title} onChange={e => setTitle(e.target.value)} placeholder={`${capitalize(type)} Title`} required className="form-control mb-3 darker-outline" />
-      <textarea value={description} onChange={e => setDescription(e.target.value)} placeholder={`${capitalize(type)} Description`} required className="form-control mb-3 darker-outline" />
+    <>
+    <Form 
+      onSubmit={handleSubmit} 
+      style={{
+        maxWidth:"1000px",
+        margin: "0 auto",       
+        display: "block"
+      }}>
+      <input 
+        type="text" 
+        value={title} 
+        onChange={e => setTitle(e.target.value)} 
+        placeholder={`${capitalize(type)} Title`} 
+        required 
+        className="form-control mb-3" 
+      />
+      <textarea 
+        value={description} 
+        onChange={e => setDescription(e.target.value)} 
+        placeholder={`${capitalize(type)} Description`} 
+        required 
+        className="form-control mb-3" 
+        style={{ minHeight: "150px", resize: "vertical" }}
+      />
       <CityDropdown value={city} onChange={setCity} language={language} cities={citiesList} />
-      <textarea value={address} onChange={e => setAddress(e.target.value)} placeholder={`${capitalize(type)} Address`} className="form-control mb-3 mt-3 darker-outline" />
+      <textarea value={address} onChange={e => setAddress(e.target.value)} placeholder={`${capitalize(type)} Address`} className="form-control mb-3 mt-3" />
 
       {(type === "event") && (
         <div className="row justify-content-center g-3 mb-3">
           <div className="col-12 col-md-3 d-flex flex-column">
             <label className="form-label mb-1">From</label>
-            <DatePicker selected={startDate} onChange={setStartDate} dateFormat="dd/MM/yyyy" className="form-control darker-outline" />
+            <DatePicker 
+              selected={startDate} 
+              onChange={setStartDate} 
+              dateFormat="dd/MM/yyyy" 
+              className="form-control" 
+              required
+              minDate={new Date()}
+            />
           </div>
           <div className="col-12 col-md-3 d-flex flex-column">
             <label className="form-label mb-1">To</label>
-            <DatePicker selected={endDate} onChange={setEndDate} dateFormat="dd/MM/yyyy" className="form-control darker-outline" />
+            <DatePicker 
+              selected={endDate} 
+              onChange={setEndDate} 
+              dateFormat="dd/MM/yyyy" 
+              className="form-control" 
+              required
+              minDate={startDate || new Date()}
+            />
           </div>
         </div>
       )}
 
-      {(type === "event") && <input type="number" value={cost} onChange={e => setCost(e.target.value)} placeholder="Cost (€)" min="0" step="0.1" className="form-control mb-3 darker-outline" />}
-      {(type === "event" || type === "shop" || type === "dine" || type === "volunteer") && <input type="text" value={link} onChange={e => setLink(e.target.value)} placeholder="Link" className="form-control mb-3 darker-outline" />}
+      {(type === "event") && 
+      <input type="number" 
+             value={cost} 
+             onChange={e => setCost(e.target.value)} 
+             placeholder="Cost (€)" min="0" step="0.1" 
+             className="form-control mb-3" 
+             required
+      />}
+      
+      <input 
+        type="text" 
+        value={link} onChange={e => setLink(e.target.value)} placeholder="Link" className="form-control mb-3" />
 
       {currentTags.length > 0 && (
         <div className="mb-3">
@@ -157,6 +212,13 @@ const FormUnified = ({ type, language = "en", initialData = null, onSuccess }) =
 
       <Button type="submit" className="btn-success">{initialData ? "Update" : "Add"} {type}</Button>
     </Form>
+      
+    <ModalComp 
+        show={showModal} 
+        setShowModal={setShowModal} 
+        message={message} 
+    />
+    </>
   );
 };
 

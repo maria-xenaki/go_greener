@@ -1,4 +1,4 @@
-package com.goGreener.eventapp.dto;
+package com.goGreener.eventapp.auth;
 
 import lombok.Getter;
 import lombok.Setter;

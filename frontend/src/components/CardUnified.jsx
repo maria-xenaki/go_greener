@@ -91,6 +91,7 @@ const UnifiedCard = ({
                 onChange={handleChange}
                 placeholder={`${entity.type} description`}
                 className="form-control mb-2"
+                style={{ minHeight: "150px", resize: "vertical" }}
               />
               <input
                 type="date"
@@ -136,6 +137,7 @@ const UnifiedCard = ({
                 onChange={handleChange}
                 placeholder={formData.link ? "" : `${entity.type} link`}
                 className="form-control mb-2"
+                
               />
 
               <div className="mb-2">
@@ -164,7 +166,7 @@ const UnifiedCard = ({
           ) : (
             <>
               <h4 className='text-break'><strong>{entity.title}</strong></h4>
-              <p className='text-break'>{entity.description}</p>
+              <p className='text-break'style={{ whiteSpace: "pre-wrap" }}>{entity.description}</p>
               <p>
                 <strong>From:</strong> {format(start, 'dd/MM/yyyy')} &nbsp;
                 <strong>To:</strong> {format(end, 'dd/MM/yyyy')}
@@ -176,7 +178,16 @@ const UnifiedCard = ({
               {entity.cost && <p><strong>Cost:</strong> €{entity.cost}</p>}
               {entity.link && (
                 <p><strong>Link: </strong>
-                  <a href={entity.link} target="_blank" rel="noopener noreferrer">{entity.link}</a>
+                  <a href={entity.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    style={{ 
+                            wordBreak: "break-all",
+                            display: "inline-block",
+                            maxWidth: "100%"
+                          }}>
+                          {entity.link}
+                  </a>
                 </p>
               )}
               {entity.tags?.length > 0 && (
@@ -199,20 +210,23 @@ const UnifiedCard = ({
 
   // Normal card layout for shops, dine, volunteers, etc
   return (
-    <div className="card mb-3 p-3">
+    <div className="card mb-3 p-3" style={{ maxWidth: "1000px", margin: "0 auto" }}>
       {isEditing ? (
         <>
           <input
             name="title"
             value={formData.title}
             onChange={handleChange}
+            placeholder={`${entity.type} title`}
             className="form-control mb-2"
           />
           <textarea
             name="description"
             value={formData.description}
             onChange={handleChange}
+            placeholder={`${entity.type} description`}
             className="form-control mb-2"
+            style={{ minHeight: "150px", resize: "vertical" }}
           />
           <input
             name="city"
@@ -224,6 +238,7 @@ const UnifiedCard = ({
             name="address"
             value={formData.address}
             onChange={handleChange}
+            placeholder={`${entity.type} address`}
             className="form-control mb-2"  
           />
           <input
@@ -231,6 +246,7 @@ const UnifiedCard = ({
             name="link"
             value={formData.link}
             onChange={handleChange}
+            placeholder={`${entity.type} link`}  
             className="form-control mb-2"
           />
 
@@ -260,14 +276,25 @@ const UnifiedCard = ({
       ) : (
         <>
           <h4><strong>{entity.title}</strong></h4>
-          <p>{entity.description}</p>
+          <p className='text-break'style={{ whiteSpace: "pre-wrap" }}>{entity.description}</p>
           <p>
             <strong>City:</strong> {entity.city}
           </p>
           {entity.address && <p><strong>Address: </strong> {entity.address}</p>}
           {entity.link && (
             <p><strong>Link: </strong> 
-              <a href={entity.link} target="_blank" rel="noopener noreferrer">{entity.link}</a>
+              <a 
+                href={entity.link} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                    style={{ 
+                            wordBreak: "break-all",
+                            display: "inline-block",
+                            maxWidth: "100%"
+                          }}
+                >
+                {entity.link}
+              </a>
             </p>
           )}
           {entity.tags?.length > 0 && (

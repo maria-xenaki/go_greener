@@ -6,7 +6,5 @@ import java.util.List;
 public interface EventRepository  extends JpaRepository<Event, Long> {
     List<Event> findByApprovedFalse();
     List<Event> findByApprovedTrue();
-
-    //ta teleutaia tou unified
-    //List<Event> findByApprovedTrue();
+    List<Event> findByCreatedById(Long createdById);
 }

@@ -17,10 +17,12 @@ import ShopPage from './pages/ShopPage';
 import DinePage from './pages/DinePage';
 import InputPage from './pages/InputPage';
 import ResetPasswordForm from './components/ResetPasswordForm';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
     <Router>
+      <ScrollToTop/>
       <div className="App d-flex flex-column min-vh-100">
         <Header className="header"/>
         <main>
@@ -44,7 +46,7 @@ function App() {
           </Routes>
         </main>
       </div>
-      <div>
+      <div style={{overflowX: "hidden"}}>
         <Footer/>
       </div>     
     </Router>

@@ -79,25 +79,42 @@ export default function CalendarView() {
   return (
     <div style={{ padding: '2rem' }}>
       {/* Header: toggle buttons left, filter right */}
-      <div className="d-flex justify-content-between align-items-center mb-4">
+
+      <div
+        className="d-flex align-items-center mb-4 flex-wrap"
+      >
+        {/* Toggle on the left */}
         <ToggleButtonGroup
           type="radio"
           name="viewMode"
           value={mode}
           onChange={setMode}
         >
-          <ToggleButton id="calendar" value="calendar" variant="outline-primary">
-            Calendar View
+          <ToggleButton
+            id="calendar"
+            value="calendar"
+            variant="outline-success"
+            size="sm"
+          >
+            Calendar
           </ToggleButton>
-          <ToggleButton id="list" value="list" variant="outline-secondary">
-            List View
+          <ToggleButton
+            id="list"
+            value="list"
+            variant="outline-success"
+            size="sm"
+          >
+            List
           </ToggleButton>
         </ToggleButtonGroup>
 
-        <FilterMenu
-          entities={events}
-          onApply={(newFilters) => setFilters(newFilters)}
-        />
+        {/* Filter moves to the right */}
+        <div className="ms-auto mt-2 mt-md-0">
+          <FilterMenu
+            entities={events}
+            onApply={(newFilters) => setFilters(newFilters)}
+          />
+        </div>
       </div>
 
       {mode === 'calendar' ? (
@@ -130,20 +147,29 @@ export default function CalendarView() {
             <Modal show={true} onHide={handleClose}>
               <Modal.Header>
                 <Modal.Title className='text-break'>
-                  <strong>Title: </strong> {selectedEvent?.title}
+                  <strong>{selectedEvent?.title}</strong> 
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
+                
+                <p className='text-break'style={{ whiteSpace: "pre-wrap" }}>{selectedEvent?.description}</p>
                 <p><strong>From: </strong>{selectedEvent?.start ? format(new Date(selectedEvent.start), "MMMM d, yyyy") : "N/A"}</p>
                 <p><strong>To: </strong>{selectedEvent?.end ? format(new Date(selectedEvent.end), "MMMM d, yyyy") : "N/A"}</p>
-                <p className='text-break'><strong>Description: </strong>{selectedEvent?.description}</p>
                 <p><strong>Cost: </strong>{selectedEvent?.cost} €</p>
                 <p><strong>City: </strong>{selectedEvent?.city}</p>
                 {selectedEvent?.address && <p><strong>Address: </strong>{selectedEvent.address}</p>}
                 {selectedEvent?.link && (
                   <p>
                     <strong>Link: </strong>
-                    <a href={selectedEvent.link} target="_blank" rel="noopener noreferrer">
+                    <a 
+                      href={selectedEvent.link} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      style={{ 
+                              wordBreak: "break-all",
+                              display: "inline-block",
+                              maxWidth: "100%"
+                      }}>
                       {selectedEvent.link}
                     </a>
                   </p>

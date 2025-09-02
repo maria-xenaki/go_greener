@@ -1,6 +1,10 @@
 [
   { "id": 1, "name": { "el": "Αθήνα", "en": "Athens" } },
+  { "id": 2, "name": { "el": "Αίγινα", "en": "Aegina" } },
   { "id": 2, "name": { "el": "Θεσσαλονίκη", "en": "Thessaloniki" } },
+  { "id": 5, "name": { "el": "Καλλιθέα", "en": "Kallithea" } },
   { "id": 3, "name": { "el": "Πάτρα", "en": "Patras" } },
-  { "id": 4, "name": { "el": "Ηράκλειο", "en": "Heraklion" } }
+  { "id": 4, "name": { "el": "Ηράκλειο", "en": "Heraklion" } },
+  { "id": 5, "name": { "el": "Φλώρινα", "en": "Florina" } },
+  { "id": 6, "name": { "el": "'Αλλη", "en": "Other" } }
 ]

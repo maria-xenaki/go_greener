@@ -20,8 +20,6 @@ export const login = async (username, password) => {
         role: payload.role
     };
 
-    console.log("to payload base64 einai: ", payloadBase64)
-    console.log("to payload einai: ", payload)
     localStorage.setItem("token", token);
 
     return { token, user};
@@ -70,13 +68,32 @@ export const resetPassword = async (token, newPassword) => {
   const res = await fetch(`${API_URL}/auth/password/reset`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ token, newPassword }) // ✅ send JSON, not query params
+    body: JSON.stringify({ token, newPassword }) 
   });
 
   if (!res.ok) {
     const errorText = await res.text();
     throw new Error(errorText || "Failed to reset password");
   }
+  return res.text();
+};
+
+//ContactForm
+
+export const sendContactForm = async (contactData) => {
+  const res = await fetch(`${API_URL}/api/contact`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(contactData),
+  });
+
+  if (!res.ok) { 
+    const errorText = await res.text();
+    throw new Error(errorText || "Failed to send contact message");
+  }
+  
   return res.text();
 };
 

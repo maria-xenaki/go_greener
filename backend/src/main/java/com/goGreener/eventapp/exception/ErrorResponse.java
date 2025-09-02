@@ -1,4 +1,4 @@
-package com.goGreener.eventapp.dto;
+package com.goGreener.eventapp.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

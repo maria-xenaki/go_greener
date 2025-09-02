@@ -1,56 +1,54 @@
 import { useEffect, useState } from "react";
 import {
-  fetchUnapprovedEvents,
-  fetchUnapprovedVolunteers,
-  fetchUnapprovedShops,
+  fetchUnapprovedEvents, fetchUnapprovedVolunteers, fetchUnapprovedShops,
   fetchUnapprovedDine,
-  approveEvent,
-  approveVolunteer,
-  approveShop,
-  approveDine,
-  deleteEvent,
-  deleteVolunteer,
-  deleteShop,
-  deleteDine,
-  updateEvent,
-  updateVolunteer,
-  updateShop,
-  updateDine,
+  fetchApprovedEvents, fetchApprovedVolunteers, fetchApprovedShops, fetchApprovedDine,
+  approveEvent, approveVolunteer, approveShop, approveDine,
+  deleteEvent, deleteVolunteer, deleteShop, deleteDine,
+  updateEvent, updateVolunteer, updateShop, updateDine,
 } from "../api";
 import UnifiedCard from "../components/CardUnified";
 
 const AdminEventsPage = () => {
   const [entities, setEntities] = useState([]);
+  const [showApproved, setShowApproved] = useState(false);
 
-  useEffect(() => {
-    loadUnapprovedEntities();
-  }, []);
+ 
+    const loadEntities = async () => {
+      try {
+        let events, volunteers, shops, dine;
 
-  const loadUnapprovedEntities = async () => {
-    try {
-      // Fetch all unapproved entities in parallel
-      const [events, volunteers, shops, dine] = await Promise.all([
-        fetchUnapprovedEvents(),
-        fetchUnapprovedVolunteers(),
-        fetchUnapprovedShops(),
-        fetchUnapprovedDine(),
-      ]);
+        if (showApproved) {
+          events = await fetchApprovedEvents();
+          volunteers = await fetchApprovedVolunteers();
+          shops = await fetchApprovedShops();
+          dine = await fetchApprovedDine();
+        } else {
+          events = await fetchUnapprovedEvents();
+          volunteers = await fetchUnapprovedVolunteers();
+          shops = await fetchUnapprovedShops();
+          dine = await fetchUnapprovedDine();
+        }
+        const allEntities = [
+          ...events.map(e => ({ ...e, type: "event" })),
+          ...volunteers.map(v => ({ ...v, type: "volunteer" })),
+          ...shops.map(s => ({ ...s, type: "shop" })),
+          ...dine.map(d => ({ ...d, type: "dine" })),
+        ];
 
-      // Merge into a single array, tagging each with its type
-      const allEntities = [
-        ...events.map(e => ({ ...e, type: "event" })),
-        ...volunteers.map(v => ({ ...v, type: "volunteer" })),
-        ...shops.map(s => ({ ...s, type: "shop" })),
-        ...dine.map(d => ({ ...d, type: "dine" })),
-      ];
-
-      setEntities(allEntities);
-    } catch (error) {
+        setEntities(allEntities);
+      } catch (error) {
         console.error(error);
-      alert("Error fetching unapproved entities");
-    }
-  };
+        alert("Error fetching entities");
+      }
+    };
 
+      useEffect(() => {
+        loadEntities();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, [showApproved]);
+
+     
   const handleApprove = async (id, type) => {
     try {
       switch (type) {
@@ -136,18 +134,26 @@ const AdminEventsPage = () => {
 
   return (
     <div className="container mt-4">
+      <div className="d-flex justify-content-end mb-3" style={{ maxWidth: "1000px", margin: "0 auto" }}>
+        <button 
+          className="btn btn-outline-success"
+          onClick={() => setShowApproved(prev => !prev)}
+        >
+          {showApproved ? "Show Unapproved" : "Show Approved"}
+        </button>
+      </div>
       {entities.length === 0 ? (
-        <p>No unapproved items found.</p>
+         <p>No {showApproved ? "approved" : "unapproved"} items found.</p>
       ) : (
         entities.map(entity => (
           <UnifiedCard
             key={`${entity.type}-${entity.id}`}
             entity={entity}
             isAdmin={true}
-            onApprove={() => handleApprove(entity.id, entity.type)}
+            onApprove={entity.approved ? null : () => handleApprove(entity.id, entity.type)}
             onDelete={() => handleDelete(entity.id, entity.type)}
             onUpdate={(id, payload) => handleUpdate(id, entity.type, payload)}
-            onRefresh={loadUnapprovedEntities}
+            onRefresh={loadEntities}
           />
         ))
       )}

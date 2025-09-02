@@ -1,4 +1,4 @@
-package com.goGreener.eventapp.service;
+package com.goGreener.eventapp.security;
 
 import com.goGreener.eventapp.user.User;
 import io.jsonwebtoken.*;

@@ -1,6 +1,6 @@
 html, body, #root {
   height: 100%;
-  margin: 10px; 
+  /* margin: 10px;  */
 }
 
 .App {
@@ -21,14 +21,17 @@ body {
   padding-top: 80px;
 }
 
-.darker-outline {
-  border: 2px solid #101011; /* dark gray */
-  border-radius: 0.25rem;    /* match Bootstrap inputs */
+/* Making Borders of bootstrap Forms and Checkboxes darker */
+.form-control,
+.form-select,
+.form-check-input {
+  border: 1px solid #000 !important;
 }
 
-.darker-outline:focus {
-  border-color: #070707;     /* darker on focus */
-  box-shadow: none;          /* remove default Bootstrap focus shadow */
+/* Make checkboxes use success green instead of blue */
+.form-check-input:checked {
+  background-color: #198754 !important;
+  border-color: #198754 !important;
 }
 
 /* CalendarView */
@@ -79,4 +82,57 @@ body {
 .rbc-time-view .rbc-background-event {
   background: none !important;
   border: none !important;
+}
+
+/* Calendar color to match react bootstrap */
+.rbc-event {
+  background-color: #198754 !important; 
+  border: 1px solid #198754 !important;
+  color: white !important;
+}
+
+.rbc-event:hover {
+  background-color: #157347 !important;
+  border-color: #157347 !important;
+}
+
+.rbc-toolbar button {
+  background-color: #198754;
+  border-color: #198754;
+  color: white;
+}
+
+.rbc-toolbar button:hover {
+  background-color: #157347;
+  border-color: #157347;
+}
+.rbc-show-more {
+  color: #198574 !important;
+  padding: 2px 6px;
+}
+
+
+/* homepage */
+/* Arrow styling */
+.slick-prev, .slick-next {
+  z-index: 2;
+  font-size: 40px;
+  color: green !important;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.slick-prev { left: -15px; }  
+.slick-next { right: -15px; } 
+
+.slick-prev:before, .slick-next:before {
+  color: green !important;
+  font-size: 30px;
+  opacity: 1;
+}
+
+/* links */
+p a {
+  text-decoration: none;
+  color:green;
 }

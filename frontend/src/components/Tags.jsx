@@ -1,13 +1,13 @@
 export const eventTags = [
   "Art", "Activism", "Animals", "Cleanup", "Festival", "Forests",
-  "Green Tech", "Seminar", "Tree Planting", "Park Restoration",
+  "Green Tech", "Kids friendly","Seminar", "Tree Planting", "Park Restoration",
   "Urban Gardening", "Volunteering", "Wildlife", "Workshop",
   "Zero Waste", "Other"
 ];
 
 export const volunteerTags = [
-  "Animals", "Community Service", "Education", "Tree Planting",
-  "Cleanup", "Other"
+  "Animals", "Birds", "Community Service", "Education", "Tree Planting",
+  "Wildlife", "Other"
 ];
 
 export const shopTags = [

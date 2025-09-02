@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { register } from "../api";
-import { Button } from 'react-bootstrap';
-import { Modal } from "react-bootstrap";
+import { Button, Modal } from 'react-bootstrap';
 
 export default function RegisterForm() {
     const [formData, setFormData] = useState({ 

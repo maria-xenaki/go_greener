@@ -1,11 +1,10 @@
 package com.goGreener.eventapp.auth;
 
-import com.goGreener.eventapp.dto.ErrorResponse;
-import com.goGreener.eventapp.dto.RegisterRequest;
+import com.goGreener.eventapp.exception.ErrorResponse;
 import com.goGreener.eventapp.emailverification.EmailVerificationService;
 import com.goGreener.eventapp.user.User;
 import com.goGreener.eventapp.user.UserRepository;
-import com.goGreener.eventapp.service.JwtService;
+import com.goGreener.eventapp.security.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
