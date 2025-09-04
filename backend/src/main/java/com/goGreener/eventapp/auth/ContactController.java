@@ -5,12 +5,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Value;
 
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class ContactController {
     private final JavaMailSender mailSender;
+
+    @Value("${app.contact.to}")
+    private String contactEmail;
 
     public static class ContactRequest {
         public String name;
@@ -22,7 +26,7 @@ public class ContactController {
     public ResponseEntity<String> sendContact(@RequestBody ContactRequest request) {
         try {
             SimpleMailMessage mailMessage = new SimpleMailMessage();
-            mailMessage.setTo("gogreenerinfo@gmail.com");
+            mailMessage.setTo(contactEmail);
             mailMessage.setSubject("Contact Form: " + request.subject);
             mailMessage.setText(
                             "Name: " + request.name + "\n" +

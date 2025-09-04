@@ -62,6 +62,7 @@ const FormUnified = ({ type, language = "en", initialData = null, onSuccess }) =
     return `${year}-${month}-${day}`;
   };
 
+  //ensuring link has https protocol
   const normalizeLink = (value) => value && !/^https?:\/\//.test(value) ? "https://" + value : value;
 
   const handleSubmit = async (e) => {

@@ -5,7 +5,6 @@ import FilterMenu from "./FilterMenu";
 
 const ITEMS_PER_PAGE = 10;
 
-// Utility: flatten events
 export function flattenEntities(entities, type, { includePast = false } = {}) {
   if (!entities) return [];
 
@@ -45,12 +44,14 @@ export function flattenEntities(entities, type, { includePast = false } = {}) {
       if (b.currentDate) return 1;
       return 0;
     });
+   return flattened;
   } else {
-    return entities.map(e => ({ ...e, currentDate: null }));
+    return entities //return other entities alphabetically 
+    .map(e => ({ ...e, currentDate: null }))
+    .sort((a,b) => a.title.localeCompare(b.title, undefined, { sensitivity: "base" }));
   }
-
-  return flattened;
 }
+
 
 const UnifiedList = ({ entities, type, isAdmin, onApprove, onDelete, onUpdate, showFilter = true }) => {
   const [flatItems, setFlatItems] = useState([]);
@@ -72,7 +73,6 @@ const UnifiedList = ({ entities, type, isAdmin, onApprove, onDelete, onUpdate, s
     );
   }
 
-  // Only flatten if entities are NOT already flattened
   const flattened = filtered.some(e => !e.currentDate) 
     ? flattenEntities(filtered, type) 
     : filtered;

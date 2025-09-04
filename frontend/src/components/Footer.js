@@ -17,7 +17,7 @@ const Footer = () => {
         </Row>
         <Row>
           <Col className="text-center">
-            <h7>Copyright © {currentYear}, GoGreener. All rights reserved.</h7>
+            <h6>Copyright © {currentYear}, GoGreener. All rights reserved.</h6>
           </Col>
         </Row>
       </Container>

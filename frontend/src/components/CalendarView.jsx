@@ -35,7 +35,7 @@ export default function CalendarView() {
         // Only approved events
         const approvedEvents = data.filter(event => event.approved);
 
-        // Flatten multi-day events
+        // Break multi-day events per day
         const expanded = [];
         approvedEvents.forEach(e => {
           if (e.startDate) {
@@ -78,12 +78,9 @@ export default function CalendarView() {
 
   return (
     <div style={{ padding: '2rem' }}>
-      {/* Header: toggle buttons left, filter right */}
-
       <div
         className="d-flex align-items-center mb-4 flex-wrap"
       >
-        {/* Toggle on the left */}
         <ToggleButtonGroup
           type="radio"
           name="viewMode"
@@ -108,7 +105,6 @@ export default function CalendarView() {
           </ToggleButton>
         </ToggleButtonGroup>
 
-        {/* Filter moves to the right */}
         <div className="ms-auto mt-2 mt-md-0">
           <FilterMenu
             entities={events}
@@ -155,7 +151,10 @@ export default function CalendarView() {
                 <p className='text-break'style={{ whiteSpace: "pre-wrap" }}>{selectedEvent?.description}</p>
                 <p><strong>From: </strong>{selectedEvent?.start ? format(new Date(selectedEvent.start), "MMMM d, yyyy") : "N/A"}</p>
                 <p><strong>To: </strong>{selectedEvent?.end ? format(new Date(selectedEvent.end), "MMMM d, yyyy") : "N/A"}</p>
-                <p><strong>Cost: </strong>{selectedEvent?.cost} €</p>
+                <p>
+                <strong> Cost: </strong>
+                {selectedEvent.cost > 0 ? `€${selectedEvent.cost}` : "Free"}
+              </p>
                 <p><strong>City: </strong>{selectedEvent?.city}</p>
                 {selectedEvent?.address && <p><strong>Address: </strong>{selectedEvent.address}</p>}
                 {selectedEvent?.link && (

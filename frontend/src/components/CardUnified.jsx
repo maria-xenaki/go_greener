@@ -80,9 +80,8 @@ const UnifiedCard = ({
               <input
                 name="title"
                 value={formData.title || ""}
-               // value={formData.title}
                 onChange={handleChange}
-               placeholder={`${entity.type} title`}
+                placeholder={`${entity.type} title`}
                 className="form-control mb-2"
               />
               <textarea
@@ -132,7 +131,6 @@ const UnifiedCard = ({
               <input
                 type="url"
                 name="link"
-                //value={formData.link}
                 value={formData.link || ""}
                 onChange={handleChange}
                 placeholder={formData.link ? "" : `${entity.type} link`}
@@ -175,7 +173,10 @@ const UnifiedCard = ({
                 <strong>City:</strong> {entity.city}
               </p>
               {entity.address && <p><strong>Address: </strong> {entity.address}</p>}
-              {entity.cost && <p><strong>Cost:</strong> €{entity.cost}</p>}
+              <p>
+                <strong> Cost: </strong>
+                {entity.cost > 0 ? `€${entity.cost}` : "Free"}
+              </p>
               {entity.link && (
                 <p><strong>Link: </strong>
                   <a href={entity.link} 
@@ -208,7 +209,7 @@ const UnifiedCard = ({
     );
   }
 
-  // Normal card layout for shops, dine, volunteers, etc
+  // Normal card layout for shops, dine, volunteers
   return (
     <div className="card mb-3 p-3" style={{ maxWidth: "1000px", margin: "0 auto" }}>
       {isEditing ? (

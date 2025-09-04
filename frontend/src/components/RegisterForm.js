@@ -122,7 +122,6 @@ export default function RegisterForm() {
           </div>
           
           <Button type="submit" className="btn btn-success w-100">Register</Button>
-          {/* {message && <p>{message}</p>} */}
         </form>
 
         <Modal show={showModal} onHide={() => setShowModal(false)} centered>

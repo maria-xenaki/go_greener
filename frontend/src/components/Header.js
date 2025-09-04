@@ -23,9 +23,8 @@ const Header = () => {
 
   return (
     <header className="w-100 fixed-top bg-white shadow-sm full-width-footer">
-      {/* ===== Desktop First Line ===== */}
+      {/* Desktop First Line */}
       <div className="d-none d-md-flex justify-content-between align-items-center w-100 py-1 px-3">
-        {/* Logo */}
         <Navbar.Brand className="d-flex align-items-center">
            <Link to="/">
              <img
@@ -57,7 +56,7 @@ const Header = () => {
          </Nav>
        </div>
 
-       {/* ===== Desktop Second Line ===== */}
+       {/* Desktop Second Line */}
        <div className="d-none d-md-block">
          <Navbar expand="md" className="py-0 w-100" style={{ backgroundColor: "transparent", borderBottom: "5px solid green" }}>
            <div className="d-flex justify-content-center align-items-center w-100 px-3">
@@ -102,7 +101,7 @@ const Header = () => {
         </Navbar>
       </div>
 
-      {/* ===== Mobile Offcanvas ===== */}
+      {/* Mobile Offcanvas */}
        <Navbar expand="md" className="d-md-none py-2 w-100" style={{ backgroundColor: "transparent" }}>
          <div className="d-flex justify-content-between align-items-center w-100 px-3">
            <Navbar.Brand>
@@ -116,7 +115,6 @@ const Header = () => {
           </Navbar.Brand>
 
           {/* Offcanvas Toggle */}
-          {/* <Navbar.Toggle aria-controls="offcanvasNavbar" className="me-3" /> */}
           <Navbar.Toggle 
              aria-controls="offcanvasNavbar" 
              className="me-3 navbar-toggler-success"
@@ -137,7 +135,6 @@ const Header = () => {
               className="bg-success text-white me-3 mt-3" />
             <Offcanvas.Body>
               <Nav className="flex-column gap-2">
-                {/* Main Links */}
                 <Nav.Link as={Link} to="/events" className="text-white" onClick={handleClose}>Events</Nav.Link>
                 <Nav.Link as={Link} to="/volunteer" className="text-white" onClick={handleClose}>Volunteer</Nav.Link>
                 <Nav.Link as={Link} to="/shop" className="text-white" onClick={handleClose}>Shop</Nav.Link>

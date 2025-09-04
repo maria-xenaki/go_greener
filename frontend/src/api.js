@@ -61,7 +61,7 @@ export const requestPasswordReset = async (email) => {
     const errorText = await res.text();
     throw new Error(errorText || "Failed to request password reset");
   }
-  return res.text(); // backend usually returns "Reset link sent"
+  return res.text();
 };
 
 export const resetPassword = async (token, newPassword) => {
@@ -135,35 +135,12 @@ export const deleteEvent = async (id) => {
     if (!res.ok) throw new Error("Failed to delete event");
 };
 
-// Update event
-// export const updateEvent = async (id, updatedData) => {
-//     const res = await authFetch(`${API_URL}/api/events/${id}`, {
-//         method: "PUT",
-//         body: JSON.stringify(updatedData)
-//     });
-
-//     if (!res.ok) throw new Error("Failed to update event");
-//     return res.json();
-// };
-
-//second  
-//export const updateEvent = async (id, payload) => {
-//     const res = await authFetch(`${API_URL}/api/events/${id}`, {
-//         method: "PUT",
-//         body: JSON.stringify(payload)
-//     });
-
-//     if (!res.ok) throw new Error("Failed to update event");
-//     return res.json();
-// };
-
-//third
 export const updateEvent = async(id, payload) => {
   console.log("perasa apo do?")
     const res = await authFetch(`${API_URL}/api/events/${id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" }, // ✅ force JSON
-        body: JSON.stringify(payload) // ✅ must be object, not number
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
     });
 
     if (!res.ok) throw new Error("Failed to update event");
@@ -179,7 +156,7 @@ export const fetchAllUsers = async () => {
     return res.json();
 };
 
-// Soft delete (disable/enable) user
+// Disable/enable user
 export const toggleUserEnabled = async (id) => {
     const res = await authFetch(`${API_URL}/users/${id}/toggle-enabled`, {
         method: "PUT"
@@ -193,7 +170,7 @@ export const createEntity = async (type, data) => {
   const token = localStorage.getItem("token");
   if (!token) throw new Error("No token, user might not be logged in");
   
-  let endpoint = `${API_URL}/api/`; // base endpoint
+  let endpoint = `${API_URL}/api/`;
 
   switch(type) {
     case "event": endpoint += "events"; break;
@@ -296,8 +273,8 @@ export const updateShop = async(id, payload) => {
   console.log("perasa apo do?")
     const res = await authFetch(`${API_URL}/api/shops/${id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" }, // ✅ force JSON
-        body: JSON.stringify(payload) // ✅ must be object, not number
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
     });
 
     if (!res.ok) throw new Error("Failed to update shop");
@@ -331,14 +308,13 @@ export const deleteDine = async (id) => {
 };
 
 export const updateDine = async (id, payload) => {
-  // payload must be a JSON object with the fields of Dine
   const res = await fetch(`http://localhost:8080/api/dine/${id}`, {
     method: "PUT",
     headers: { 
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("token") || ""}`
     },
-    body: JSON.stringify(payload) // <-- payload must be an object, not a number
+    body: JSON.stringify(payload)
   });
 
   if (!res.ok) {

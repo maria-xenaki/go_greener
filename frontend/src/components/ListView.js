@@ -4,10 +4,10 @@ const ListView = ({ events }) => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  // Only future events (today onward)
+  // Only future events (starting today)
   const futureEvents = events
     .filter(e => e.currentDate >= today)
-    .sort((a, b) => a.currentDate - b.currentDate); // chronological
+    .sort((a, b) => a.currentDate - b.currentDate);
 
   return (
     <div  >

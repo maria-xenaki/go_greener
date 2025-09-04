@@ -11,17 +11,15 @@ export const volunteerTags = [
 ];
 
 export const shopTags = [
-  "Clothes", "Food", "Second-hand", "Upcycled/Recycled", "Vegan", "Zero Waste", "Other"
+  "Clothes", "Cleaning Products", "Food", "Personal care", "Second-hand", "Upcycled/Recycled", "Vegan", "Zero Waste", "Other"
 ];
 
 export const dineTags = [
-  "Vegan", "Vegetarian", "Plant-Based", "Organic Ingredients",
+  "Vegan", "Vegetarian", "Plant-Based", "Raw",
   "Other"
 ];
 
-/**
- * Utility function: get tags for each entity type
- */
+/* Get tags for each entity type */
 export const getTagsForType = (type) => {
   switch (type) {
     case "event":

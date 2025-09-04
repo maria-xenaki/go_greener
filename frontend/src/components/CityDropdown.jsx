@@ -19,7 +19,7 @@ const CityDropdown = ({ value, onChange, language = "en", className = "" }) => {
     >
       <option value="">Select a city</option>
       {cities.map(city => {
-        // fallback if city.name or city.name[language] is undefined
+        // if city.name or city.name[language] is undefined
         const cityName = city?.name?.[language] || city?.name?.en || `City ${city.id}`;
         return (
           <option key={city.id} value={cityName}>

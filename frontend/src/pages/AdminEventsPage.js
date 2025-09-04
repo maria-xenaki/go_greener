@@ -43,6 +43,7 @@ const AdminEventsPage = () => {
       }
     };
 
+    //ignoring missing dependency warning to avoid re-run of useEffect
       useEffect(() => {
         loadEntities();
         // eslint-disable-next-line react-hooks/exhaustive-deps

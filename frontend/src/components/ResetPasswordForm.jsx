@@ -13,7 +13,7 @@ export default function ResetPasswordForm() {
     const [emailSent, setEmailSent] = useState(false);
 
     const [searchParams] = useSearchParams();
-    const token = searchParams.get("token"); // If URL has token → show reset password
+    const token = searchParams.get("token");
 
     const handleChange = (e) => {
         setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -52,8 +52,8 @@ export default function ResetPasswordForm() {
         );
         const text = await res.text();
 
-        setMessage(text);       // show the message from backend
-        setShowModal(true);     // open modal
+        setMessage(text); 
+        setShowModal(true); 
 
         if (res.ok) {
             // redirect after 2 seconds
@@ -67,8 +67,6 @@ export default function ResetPasswordForm() {
     }
 };
 
-
-    // --- Modal Component ---
     const renderModal = () => (
         <Modal show={showModal} onHide={() => setShowModal(false)} centered>
             <Modal.Header closeButton>
@@ -84,7 +82,6 @@ export default function ResetPasswordForm() {
         </Modal>
     );
 
-    // --- Render Reset Password Form ---
     if (token) {
         return (
             <>

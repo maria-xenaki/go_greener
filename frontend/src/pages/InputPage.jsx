@@ -24,7 +24,6 @@ const InputPage = () => {
         <option value="dine">Dine</option>
       </Form.Select>
 
-      {/* Dynamic form component */}
       <FormUnified type={type} />
     </div>
   );

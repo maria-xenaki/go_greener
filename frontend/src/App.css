@@ -1,6 +1,5 @@
 html, body, #root {
   height: 100%;
-  /* margin: 10px;  */
 }
 
 .App {
@@ -28,7 +27,7 @@ body {
   border: 1px solid #000 !important;
 }
 
-/* Make checkboxes use success green instead of blue */
+/* Make checkboxes use bootstrap's success green instead of blue */
 .form-check-input:checked {
   background-color: #198754 !important;
   border-color: #198754 !important;
@@ -47,7 +46,7 @@ body {
   flex: none !important;
 }
 
-/* Kill the default grid (time gutter + slots + background) */
+/* No display of calendar's default grid (time gutter + slots + background) */
 .rbc-time-view .rbc-time-gutter,
 .rbc-time-view .rbc-time-slot,
 .rbc-time-view .rbc-timeslot-group,
@@ -68,7 +67,7 @@ body {
   flex: none !important;
 }
 
-/* Expand events full width and stack neatly */
+/* Expand events full width and position  */
 .rbc-time-view .rbc-event {
   width: 100% !important;
   left: 0 !important;

@@ -89,7 +89,7 @@ const ImageCarousel = () => (
             }}
           />
 
-      {/* Text overlay on left side */}
+      {/* Text on left side */}
       <div
         style={{
           position: "absolute",
@@ -108,7 +108,7 @@ const ImageCarousel = () => (
 </Container>
 
 
-      {/* Second Section: Text + Carousel */}
+      {/* Text + Carousel */}
       <Container fluid className="mt-3">
         <Row className="p-3 w-100" style={{ maxWidth: "1200px", margin: "0 auto" }}>
           <Col xs={12} className="text-center">

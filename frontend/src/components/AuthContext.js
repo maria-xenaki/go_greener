@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
         const decoded = jwtDecode(token);
 
         const userData = {
-            username: decoded.sub, //how jwt decode stores subject
+            username: decoded.sub,
             role: decoded.role,            
             token: token
         };
