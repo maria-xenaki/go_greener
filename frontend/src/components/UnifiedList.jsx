@@ -56,15 +56,15 @@ export function flattenEntities(entities, type, { includePast = false } = {}) {
 const UnifiedList = ({ entities, type, isAdmin, onApprove, onDelete, onUpdate, showFilter = true }) => {
   const [flatItems, setFlatItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [filters, setFilters] = useState({ city: "", tags: [] });
+  const [filters, setFilters] = useState({ city: [], tags: [] });
 
   useEffect(() => {
   if (!entities) return;
 
   let filtered = entities;
 
-  if (filters.city) {
-    filtered = filtered.filter(e => e.city === filters.city);
+  if (filters.city.length > 0) {
+    filtered = filtered.filter(e => filters.city.includes(e.city));
   }
 
   if (filters.tags.length > 0) {

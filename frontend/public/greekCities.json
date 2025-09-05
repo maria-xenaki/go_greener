@@ -10,5 +10,6 @@
   { "id": 9, "name": { "el": "Φλώρινα", "en": "Florina" } },
   { "id": 10, "name": { "el": "Χαλάνδρι", "en": "Halandri" } },
   { "id": 11, "name": { "el": "'Αλλη", "en": "Other" } },
-  { "id": 12, "name": { "el": "e-shop", "en": "e-shop" }}
+  { "id": 12, "name": { "el": "e-shop", "en": "e-shop" }},
+  { "id": 12, "name": { "el": "'Ολυμπος'", "en": "mt. Olympos" }}
 ]
