@@ -1,5 +1,6 @@
 import React, {useContext} from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import "../App";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -44,7 +45,7 @@ const ImageCarousel = () => (
   <Slider {...settings}>
       {carouselItems.map((item, idx) => (
         <div key={idx} style={{ textAlign: "center" }} className="mt-2">
-          <a href={item.link} className="text-decoration-none">
+          <Link to={item.link} className="text-decoration-none">
             <img
               src={item.src}
               alt={item.alt}
@@ -64,7 +65,7 @@ const ImageCarousel = () => (
           >
             {item.alt}
           </div>
-          </a>
+          </Link>
         </div>
       ))}
     </Slider>

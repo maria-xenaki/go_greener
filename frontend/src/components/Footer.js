@@ -1,4 +1,5 @@
 import { Container, Row, Col, Nav } from 'react-bootstrap';
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -9,9 +10,9 @@ const Footer = () => {
         <Row className="justify-content-center mb-2 mx-0">
           <Col xs="auto" className="text-center mb-3">
             <Nav className="justify-content-center gap-1">
-              <Nav.Link href="/about" className="text-white">About Us</Nav.Link>
-              <Nav.Link href="/contact" className="text-white">Contact Us</Nav.Link>
-              <Nav.Link href="/social" className="text-white">Social Media</Nav.Link>
+              <Nav.Link as={Link} to="/about" className="text-white">About Us</Nav.Link>
+              <Nav.Link as={Link} to="/contact" className="text-white">Contact Us</Nav.Link>
+              <Nav.Link as={Link} to="/social" className="text-white">Social Media</Nav.Link>
             </Nav>
           </Col>
         </Row>
