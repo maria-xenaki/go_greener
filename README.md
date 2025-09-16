@@ -1,9 +1,9 @@
-#GoGreener
+# GoGreener
 
 Full stack website with eco-friendly content. 
 Visitors view events and other categories, which are posted by users and approved by admins.
 
-##1. Prerequisites (for installation on Windows): 
+## 1. Prerequisites (for installation on Windows): 
 
 1.1 Download java jdk 17 from Oracle JDK (www.oracle.com/java/technologies/downloads/#java21?er=221886) 
 
@@ -34,18 +34,18 @@ Visitors view events and other categories, which are posted by users and approve
 
 	Download mysql shell for managing and visualizing your db (optional)
 
-##2. Clone the Repository
+## 2. Clone the Repository
 
 	git clone https://github.com/maria-xenaki/go_greener 
 	cd go_greener 
 	
 	git checkout gogreener1 (*branch with latest updates)
 
-##3. Database Setup: Create a local database using the provided SQL file:
+## 3. Database Setup: Create a local database using the provided SQL file:
 
 	mydb_schema_self_contained.sql
 
-##4. Backend Setup (Spring Boot) 
+## 4. Backend Setup (Spring Boot) 
 
 	Go to backend folder: 
 
@@ -60,7 +60,7 @@ Visitors view events and other categories, which are posted by users and approve
 	MAIL_USERNAME=your_email
 	MAIL_PASSWORD=your_password
 
-##5. SERVER_PORT=8080 
+## 5. SERVER_PORT=8080 
 
 	Run backend AND frontend (frontend bundle inside backend): # Maven 
 
@@ -70,7 +70,7 @@ Visitors view events and other categories, which are posted by users and approve
 
 	Backend and frontend should be accessible at: http://localhost:8080 
 
-##6. Frontend Setup (React) (OPTIONAL: if you want to run frontend only)
+## 6. Frontend Setup (React) (OPTIONAL: if you want to run frontend only)
 
 	Go to frontend folder: 
 
@@ -84,18 +84,18 @@ Visitors view events and other categories, which are posted by users and approve
 	npm start 
 	# opens at http://localhost:3000 Frontend should open in browser automatically 
 
-##7. Demo Account 
+## 7. Demo Account 
 
 	User: user 
 	Password: 123 
 	Role: Regular user (no admin rights) 
 	*Admin features are not accessible for safety; see screenshots if needed. 
 
-##8. Screenshots 
+## 8. Screenshots 
 
 	Available inside docs/images 
 
-##9. Future improvements 
+## 9. Future improvements 
 	- implement language toggle
 	- add dark mode
 	- improve mobile responsiveness
