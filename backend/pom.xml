@@ -14,6 +14,7 @@
 	<groupId>com.goGreener</groupId>
 	<artifactId>eventapp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>eventapp</name>
 	<description>Event management system with admin approval</description>
 
@@ -62,6 +63,12 @@
 			<version>8.4.0</version>
 			<scope>runtime</scope>
 		</dependency>
+
+<!--		<dependency>-->
+<!--			<groupId>org.postgresql</groupId>-->
+<!--			<artifactId>postgresql</artifactId>-->
+<!--			<version>42.6.0</version>-->
+<!--		</dependency>-->
 
 		<!-- Lombok -->
 		<dependency>

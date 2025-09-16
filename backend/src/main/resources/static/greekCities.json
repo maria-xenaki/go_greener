@@ -1,0 +1,15 @@
+[
+  { "id": 1, "name": { "el": "Αθήνα", "en": "Athens" } },
+  { "id": 2, "name": { "el": "Αίγινα", "en": "Aegina" } },
+  { "id": 3, "name": { "el": "Θεσσαλονίκη", "en": "Thessaloniki" } },
+  { "id": 4, "name": { "el": "Καλλιθέα", "en": "Kallithea" } },
+  { "id": 5, "name": { "el": "Νέα Ιωνία", "en": "Nea Ionia" } },
+  { "id": 6, "name": { "el": "Νέο Ηράκλειο", "en": "Neo Heraklion" } },
+  { "id": 7, "name": { "el": "Πάτρα", "en": "Patras" } },
+  { "id": 8, "name": { "el": "Ηράκλειο", "en": "Heraklion" } },
+  { "id": 9, "name": { "el": "Φλώρινα", "en": "Florina" } },
+  { "id": 10, "name": { "el": "Χαλάνδρι", "en": "Halandri" } },
+  { "id": 11, "name": { "el": "'Αλλη", "en": "Other" } },
+  { "id": 12, "name": { "el": "e-shop", "en": "e-shop" }},
+  { "id": 12, "name": { "el": "'Ολυμπος'", "en": "mt. Olympos" }}
+]

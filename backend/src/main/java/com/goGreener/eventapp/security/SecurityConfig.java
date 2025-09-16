@@ -26,6 +26,7 @@ public class SecurityConfig {
     private final JwtService jwtService;
     private final UserDetailsServiceImpl userDetailsService;
 
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         JwtAuthFilter jwtAuthFilter = new JwtAuthFilter(jwtService, userDetailsService);
@@ -35,22 +36,61 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/test", "/ping", "/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/events/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/events").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/events/**").hasRole("ADMIN")
-                        .requestMatchers("/users/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/events/unapproved").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/events/**").hasRole("ADMIN")
-                        .anyRequest().permitAll()
+                        // React app + static assets
+                        .requestMatchers(
+                                "/", "/index.html", "/favicon.ico", "/manifest.json", "/static/**",
+                                "/*.png", "/*.jpg", "/*.json"
+                        ).permitAll()
+
+                        // public backend endpoints
+                        .requestMatchers("/test", "/ping", "/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.GET,
+                                "/api/events/**",
+                                "/api/events/approved",
+                                "/api/volunteers/approved",
+                                "/api/shops/approved",
+                                "/api/dine/approved"
+                        ).permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/contact").permitAll()
+
+                        // POST authenticated
+                        .requestMatchers(HttpMethod.POST,
+                                "/api/events",
+                                "/api/volunteers",
+                                "/api/shops",
+                                "/api/dine"
+                        ).hasAnyRole("USER", "ADMIN")
+
+                        // PUT (ADMIN only)
+                        .requestMatchers(HttpMethod.PUT,
+                                "/api/events/**",
+                                "/api/volunteers/**",
+                                "/api/shops/**",
+                                "/api/dine/**",
+                                "/users/**"
+                        ).hasRole("ADMIN")
+
+                        // DELETE (ADMIN only)
+                        .requestMatchers(HttpMethod.DELETE,
+                                "/api/events/**",
+                                "/api/volunteers/**",
+                                "/api/shops/**",
+                                "/api/dine/**"
+                        ).hasRole("ADMIN")
+
+                        // any other request requires auth
+                        .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
+
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
