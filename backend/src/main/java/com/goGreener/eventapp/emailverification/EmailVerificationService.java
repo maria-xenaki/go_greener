@@ -32,7 +32,7 @@ public class EmailVerificationService {
 
         userRepository.save(user);
 
-        String link = frontendBaseUrl + "/verify-email?token=" + token;
+        String link = frontendBaseUrl + "/#/verify-email?token=" + token;
 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(user.getEmail());

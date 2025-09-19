@@ -21,7 +21,7 @@ const DinePage = () => {
   return (
     <div className="container mt-4">
       {dines.length === 0 ? (
-        <p>No events available.</p>
+        <p>No posts available.</p>
       ) : (
           <UnifiedList entities={dines} 
           showFilter={true}/>

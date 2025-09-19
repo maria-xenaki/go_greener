@@ -21,7 +21,7 @@ const ShopPage = () => {
   return (
     <div className="container mt-4">
       {shops.length === 0 ? (
-        <p>No shops available.</p>
+        <p>No posts available.</p>
       ) : (
           <UnifiedList entities={shops} />
       )}

@@ -43,7 +43,7 @@ public class SecurityConfig {
                         ).permitAll()
 
                         // public backend endpoints
-                        .requestMatchers("/test", "/ping", "/auth/**").permitAll()
+                        .requestMatchers("/test", "/ping", "/auth/**", "/api/email-verification/**").permitAll()
                         .requestMatchers(HttpMethod.GET,
                                 "/api/events/**",
                                 "/api/events/approved",

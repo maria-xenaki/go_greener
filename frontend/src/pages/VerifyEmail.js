@@ -5,7 +5,7 @@ const VerifyEmail = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = new URLSearchParams(window.location.search).get("token");
+    const token = new URLSearchParams(window.location.hash.split('?')[1]).get('token');
 
     if (!token) {
       setMessage("No token provided.");
