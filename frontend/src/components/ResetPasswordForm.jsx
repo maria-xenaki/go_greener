@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
+import { requestPasswordReset, resetPassword } from "../api";
 
 export default function ResetPasswordForm() {
     const [formData, setFormData] = useState({
@@ -23,11 +24,7 @@ export default function ResetPasswordForm() {
     const handleRequestReset = async (e) => {
         e.preventDefault();
         try {
-            const res = await fetch(
-                `http://localhost:8080/auth/password/request?email=${formData.email}`,
-                { method: "POST" }
-            );
-            const text = await res.text();
+            const text = await requestPasswordReset(formData.email);
             setMessage(text);
             setEmailSent(true);
             setShowModal(true);
@@ -46,21 +43,14 @@ export default function ResetPasswordForm() {
         return;
     }
     try {
-        const res = await fetch(
-            `http://localhost:8080/auth/password/reset?token=${token}&newPassword=${formData.newPassword}`,
-            { method: "POST" }
-        );
-        const text = await res.text();
-
+        const text = await resetPassword(token, formData.newPassword);
         setMessage(text); 
         setShowModal(true); 
-
-        if (res.ok) {
-            // redirect after 2 seconds
-            setTimeout(() => {
-                window.location.href = "/login";
+        
+        // redirect after 2 seconds
+        setTimeout(() => {
+            window.location.href = "/login";
             }, 2000);
-        }
     } catch (err) {
         setMessage("Failed to reset password.");
         setShowModal(true);

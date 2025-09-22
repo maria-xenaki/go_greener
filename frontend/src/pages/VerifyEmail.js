@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { verifyEmail } from "../api";
 
 const VerifyEmail = () => {
   const [message, setMessage] = useState("Verifying your email...");
@@ -13,18 +14,9 @@ const VerifyEmail = () => {
       return;
     }
 
-    const verifyEmail = async () => {
+    const doVerify = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:8080/api/email-verification/confirm?token=${token}`
-        );
-
-        const text = await response.text();
-
-        if (!response.ok) {
-          throw new Error(text || "Verification failed.");
-        }
-
+        const text = await verifyEmail(token);
         setMessage(text);
       } catch (error) {
         setMessage(error.message || "Something went wrong.");
@@ -33,7 +25,7 @@ const VerifyEmail = () => {
       }
     };
 
-    verifyEmail();
+    doVerify();
   }, []);
 
   return (

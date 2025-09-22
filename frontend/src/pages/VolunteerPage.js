@@ -4,6 +4,8 @@ import UnifiedList from "../components/UnifiedList";
 
 const VolunteerPage = () => {
   const [volunteers, setVolunteers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     loadVolunteers();
@@ -14,7 +16,10 @@ const VolunteerPage = () => {
       const data = await fetchApprovedVolunteers();
       setVolunteers(data);
     } catch (error) {
-      alert("Error fetching events");
+      console.error();
+      setError("Error fetching posts");
+    } finally {
+      setLoading(false);
     }
   };
 

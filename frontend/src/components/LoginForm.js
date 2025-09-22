@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { AuthContext } from "./AuthContext";
+import { login as apiLogin} from "../api";
 
 export default function LoginForm() {
     const [formData, setFormData] = useState({ username: "", password: ""});
@@ -21,28 +22,16 @@ export default function LoginForm() {
         setIsError(false);
 
         try {
-            const response = await fetch("http://localhost:8080/auth/login", {
-                method: "POST",
-                headers: { "Content-type": "application/json" },
-                body: JSON.stringify(formData),
-            });
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                setMessage(data.message || "Login failed");
-                setIsError(true);
-                return;
-            }
-
+            const data = await apiLogin(formData.username, formData.password);
+            
             login(data.token);
-            setMessage("Login successful!");
+            setMessage("Login successful!")
             setIsError(false);
             navigate("/add-something-green");
 
         } catch (err) {
             console.error(err);
-            setMessage("An unexpected error occurred. Please try again.");
+            setMessage("Login failed. Please try again.");
             setIsError(true);
         }
     };

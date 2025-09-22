@@ -4,6 +4,8 @@ import UnifiedList from "../components/UnifiedList";
 
 const ShopPage = () => {
   const [shops, setShops] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     loadShops();
@@ -14,7 +16,10 @@ const ShopPage = () => {
       const data = await fetchApprovedShops();
       setShops(data);
     } catch (error) {
-      alert("Error fetching events");
+      console.error();
+      setError("Error fetching posts");
+    } finally {
+      setLoading(false);
     }
   };
 

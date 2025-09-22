@@ -12,6 +12,16 @@ const authFetch = async (url, options = {}) => {
     return fetch(`${API_URL}${url}`, { ...options, headers });
 };
 
+export const verifyEmail = async (token) => {
+  const res = await fetch(`${API_URL}/api/email-verification/confirm?token=${token}`);
+  const text = await res.text();
+
+  if (!res.ok) {
+    throw new Error(text || "Verification failed");
+  }
+  return text;
+}
+
 export const login = async (username, password) => {
     const res = await fetch(`${API_URL}/auth/login`, {
         method: "POST",

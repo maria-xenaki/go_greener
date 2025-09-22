@@ -7,6 +7,7 @@ import { Modal, Button, ToggleButtonGroup, ToggleButton } from "react-bootstrap"
 import FilterMenu from './FilterMenu';
 import ListView from './ListView';
 import '../App.css';
+import { fetchApprovedEvents } from "../api";
 
 const locales = { 'en-US': enUS };
 
@@ -29,7 +30,7 @@ export default function CalendarView() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const res = await fetch("http://localhost:8080/api/events");
+        const res = await fetchApprovedEvents;
         const data = await res.json();
 
         // Only approved events

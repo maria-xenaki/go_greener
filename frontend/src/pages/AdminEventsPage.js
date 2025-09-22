@@ -39,7 +39,7 @@ const AdminEventsPage = () => {
         setEntities(allEntities);
       } catch (error) {
         console.error(error);
-        alert("Error fetching entities");
+        alert("Error fetching posts");
       }
     };
 
