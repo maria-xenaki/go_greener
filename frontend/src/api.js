@@ -1,5 +1,4 @@
-const API_URL = 
-process.env.REACT_APP_API_URL || "http://localhost:8080";
+const API_URL = 'https://go-greener-app.onrender.com';
 
 // Send authenticated request
 const authFetch = async (url, options = {}) => {
