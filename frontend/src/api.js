@@ -1,11 +1,22 @@
-const API_URL = "http://localhost:8080";
+const API_URL = 
+process.env.REACT_APP_API_URL || "http://localhost:8080";
+
+// Send authenticated request
+const authFetch = async (url, options = {}) => {
+    const token = localStorage.getItem("token");
+    const headers = {
+        ...(options.headers || {}),
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {})
+    };
+
+    return fetch(`${API_URL}${url}`, { ...options, headers });
+};
 
 export const login = async (username, password) => {
     const res = await fetch(`${API_URL}/auth/login`, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
+        headers: {"Content-Type": "application/json"},
         body: JSON.stringify({ username, password }),
     });
 
@@ -28,26 +39,14 @@ export const login = async (username, password) => {
 export const register = async (user) => {
     const res = await fetch(`${API_URL}/auth/register`, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
+        headers: {"Content-Type": "application/json"},
         body: JSON.stringify(user),
     });
 
     if (!res.ok) throw new Error("Register failed");
     return res.text();
 }
-// Send authenticated request
-const authFetch = async (url, options = {}) => {
-    const token = localStorage.getItem("token");
-    const headers = {
-        ...(options.headers || {}),
-        "Content-Type": "application/json",
-        ...(token ? { Authorization: `Bearer ${token}` } : {})
-    };
 
-    return fetch(url, { ...options, headers });
-};
 
 // AUTH - Forgot / Reset Password
 export const requestPasswordReset = async (email) => {
@@ -83,9 +82,7 @@ export const resetPassword = async (token, newPassword) => {
 export const sendContactForm = async (contactData) => {
   const res = await fetch(`${API_URL}/api/contact`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: {"Content-Type": "application/json"},
     body: JSON.stringify(contactData),
   });
 
@@ -98,6 +95,7 @@ export const sendContactForm = async (contactData) => {
 };
 
 //EVENTS
+
 // Post a new event (authenticated)
 export const createEvent = async (eventData) => {
      const token = localStorage.getItem("token");
@@ -116,28 +114,31 @@ export const createEvent = async (eventData) => {
     return res.json();
 };
 
+export const fetchApprovedEvents = async () => {
+  const res = await fetch(`${API_URL}/api/events/approved`);
+  if (!res.ok) throw new Error("Failed to fetch approved events");
+  return res.json();
+};
+
 export const fetchUnapprovedEvents = async () => {
-    const res = await authFetch(`${API_URL}/api/events/unapproved`);
+    const res = await fetch(`${API_URL}/api/events/unapproved`);
     if (!res.ok) throw new Error("Failed to fetch unapproved events");
     return res.json();
 };
 
-// Approve event
 export const approveEvent = async (id) => {
-    const res = await authFetch(`${API_URL}/api/events/${id}/approve`, { method: "PUT" });
+    const res = await authFetch(`/api/events/${id}/approve`, { method: "PUT" });
     if (!res.ok) throw new Error("Failed to approve event");
     return res.json();
 };
 
-// Delete event
 export const deleteEvent = async (id) => {
-    const res = await authFetch(`${API_URL}/api/events/${id}`, { method: "DELETE" });
+    const res = await authFetch(`/api/events/${id}`, { method: "DELETE" });
     if (!res.ok) throw new Error("Failed to delete event");
 };
 
 export const updateEvent = async(id, payload) => {
-  console.log("perasa apo do?")
-    const res = await authFetch(`${API_URL}/api/events/${id}`, {
+    const res = await authFetch(`/api/events/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
@@ -149,16 +150,15 @@ export const updateEvent = async(id, payload) => {
 
 
 //USERS
-// Get all users (ADMIN only)
 export const fetchAllUsers = async () => {
-    const res = await authFetch(`${API_URL}/users`);
+    const res = await authFetch(`/users`);
     if (!res.ok) throw new Error("Failed to fetch users");
     return res.json();
 };
 
-// Disable/enable user
+// Disable-enable user
 export const toggleUserEnabled = async (id) => {
-    const res = await authFetch(`${API_URL}/users/${id}/toggle-enabled`, {
+    const res = await authFetch(`/users/${id}/toggle-enabled`, {
         method: "PUT"
     });
     if (!res.ok) throw new Error("Failed to toggle user");
@@ -198,13 +198,6 @@ export const createEntity = async (type, data) => {
 };
 
 
-// EVENTS
-export const fetchApprovedEvents = async () => {
-  const res = await fetch(`${API_URL}/api/events/approved`);
-  if (!res.ok) throw new Error("Failed to fetch approved events");
-  return res.json();
-};
-
 // VOLUNTEERS
 export const fetchApprovedVolunteers = async () => {
   const res = await fetch(`${API_URL}/api/volunteers/approved`);
@@ -222,18 +215,18 @@ export const fetchUnapprovedVolunteers = async () => {
 };
 
 export const approveVolunteer = async (id) => {
-  const res = await authFetch(`${API_URL}/api/volunteers/${id}/approve`, { method: "PUT" });
+  const res = await authFetch(`/api/volunteers/${id}/approve`, { method: "PUT" });
   if (!res.ok) throw new Error("Failed to approve volunteer");
   return res.json();
 };
 
 export const deleteVolunteer = async (id) => {
-  const res = await authFetch(`${API_URL}/api/volunteers/${id}`, { method: "DELETE" });
+  const res = await authFetch(`/api/volunteers/${id}`, { method: "DELETE" });
   if (!res.ok) throw new Error("Failed to delete volunteer");
 };
 
 export const updateVolunteer = async (id, payload) => {
-  const res = await authFetch(`${API_URL}/api/volunteers/${id}`, {
+  const res = await authFetch(`/api/volunteers/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
@@ -244,14 +237,14 @@ export const updateVolunteer = async (id, payload) => {
 
 // SHOPS
 export const fetchApprovedShops = async () => {
-  const res = await authFetch(`${API_URL}/api/shops/approved`);
+  const res = await authFetch(`/api/shops/approved`);
   if (!res.ok) throw new Error("Failed to fetch approved shops");
   return res.json();
 };
 
 export const fetchUnapprovedShops = async () => {
   const token = localStorage.getItem("token");
-  const res = await authFetch(`${API_URL}/api/shops/unapproved`, {
+  const res = await authFetch(`/api/shops/unapproved`, {
     headers: { Authorization: `Bearer ${token}` },
   });
   if (!res.ok) throw new Error("Failed to fetch unapproved shops");
@@ -259,19 +252,18 @@ export const fetchUnapprovedShops = async () => {
 };
 
 export const approveShop = async (id) => {
-  const res = await authFetch(`${API_URL}/api/shops/${id}/approve`, { method: "PUT" });
+  const res = await authFetch(`/api/shops/${id}/approve`, { method: "PUT" });
   if (!res.ok) throw new Error("Failed to approve shop");
   return res.json();
 };
 
 export const deleteShop = async (id) => {
-  const res = await authFetch(`${API_URL}/api/shops/${id}`, { method: "DELETE" });
+  const res = await authFetch(`/api/shops/${id}`, { method: "DELETE" });
   if (!res.ok) throw new Error("Failed to delete shop");
 };
 
 export const updateShop = async(id, payload) => {
-  console.log("perasa apo do?")
-    const res = await authFetch(`${API_URL}/api/shops/${id}`, {
+    const res = await authFetch(`/api/shops/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
@@ -283,14 +275,14 @@ export const updateShop = async(id, payload) => {
 
 // DINING
 export const fetchApprovedDine = async () => {
-  const res = await authFetch(`${API_URL}/api/dine/approved`);
+  const res = await authFetch(`/api/dine/approved`);
   if (!res.ok) throw new Error("Failed to fetch approved dine");
   return res.json();
 };
 
 export const fetchUnapprovedDine = async () => {
   const token = localStorage.getItem("token");
-  const res = await authFetch(`${API_URL}/api/dine/unapproved`, {
+  const res = await authFetch(`/api/dine/unapproved`, {
     headers: { Authorization: `Bearer ${token}` },
   });
   if (!res.ok) throw new Error("Failed to fetch unapproved dining");
@@ -298,17 +290,17 @@ export const fetchUnapprovedDine = async () => {
 };
 
 export const approveDine = async (id) => {
-  const res = await authFetch(`${API_URL}/api/dine/${id}/approve`, { method: "PUT" });
+  const res = await authFetch(`/api/dine/${id}/approve`, { method: "PUT" });
   if (!res.ok) throw new Error("Failed to approve dining entry");
 };
 
 export const deleteDine = async (id) => {
-  const res = await authFetch(`${API_URL}/api/dine/${id}`, { method: "DELETE" });
+  const res = await authFetch(`/api/dine/${id}`, { method: "DELETE" });
   if (!res.ok) throw new Error("Failed to delete dining entry");
 };
 
 export const updateDine = async (id, payload) => {
-  const res = await fetch(`http://localhost:8080/api/dine/${id}`, {
+  const res = await authFetch(`/api/dine/${id}`, {
     method: "PUT",
     headers: { 
       "Content-Type": "application/json",
