@@ -30,8 +30,7 @@ export default function CalendarView() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const res = await fetchApprovedEvents;
-        const data = await res.json();
+        const data = await fetchApprovedEvents();
 
         // Only approved events
         const approvedEvents = data.filter(event => event.approved);

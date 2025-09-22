@@ -25,10 +25,15 @@ const VolunteerPage = () => {
 
   return (
     <div className="container mt-4">
-      {volunteers.length === 0 ? (
+      {loading ? (
+        <p>Loading posts...</p>
+      ) : error? (
+        <p>{error}</p>
+      ) : volunteers.length === 0 ? (
         <p>No posts available.</p>
       ) : (
-          <UnifiedList entities={volunteers} />
+          <UnifiedList entities={volunteers} 
+          showFilter={true}/>
       )}
     </div>
   );

@@ -25,10 +25,15 @@ const ShopPage = () => {
 
   return (
     <div className="container mt-4">
-      {shops.length === 0 ? (
+      {loading ? (
+        <p>Loading posts...</p>
+      ) : error? (
+        <p>{error}</p>
+      ) : shops.length === 0 ? (
         <p>No posts available.</p>
       ) : (
-          <UnifiedList entities={shops} />
+          <UnifiedList entities={shops} 
+          showFilter={true}/>
       )}
     </div>
   );
