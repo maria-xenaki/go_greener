@@ -31,7 +31,8 @@ export const login = async (username, password) => {
 
     if (!res.ok) throw new Error("Login failed");
     
-    const token = await res.text();
+    const data = await res.json();
+    const token = data.token;
 
     const payloadBase64 = token.split('.')[1];
     const payload = JSON.parse(atob(payloadBase64));
