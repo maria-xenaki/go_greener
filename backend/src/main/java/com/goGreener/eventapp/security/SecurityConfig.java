@@ -61,6 +61,15 @@ public class SecurityConfig {
                                 "/api/dine"
                         ).hasAnyRole("USER", "ADMIN")
 
+                        //GET (ADMIN only)
+                        .requestMatchers((HttpMethod.GET,
+                                "api/users/**",
+                                "api/events/unapproved",
+                                "api/volunteers/unapproved",
+                                "api/shops/unapproved",
+                                "api/dine/unapproved"
+                        ).hasRole("ADMIN")
+
                         // PUT (ADMIN only)
                         .requestMatchers(HttpMethod.PUT,
                                 "/api/events/**",
