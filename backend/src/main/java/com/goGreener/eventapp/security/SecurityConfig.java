@@ -77,7 +77,8 @@ public class SecurityConfig {
                                 "/api/volunteers/**",
                                 "/api/shops/**",
                                 "/api/dine/**",
-                                "/api/users/**"
+                                "/api/users/**",
+                                "/api/users"
                         ).hasRole("ADMIN")
 
                         // DELETE (ADMIN only)
