@@ -63,11 +63,11 @@ public class SecurityConfig {
 
                         //GET (ADMIN only)
                         .requestMatchers(HttpMethod.GET,
-                                "api/users/**",
-                                "api/events/unapproved",
-                                "api/volunteers/unapproved",
-                                "api/shops/unapproved",
-                                "api/dine/unapproved"
+                                "/api/users/**",
+                                "/api/events/unapproved",
+                                "/api/volunteers/unapproved",
+                                "/api/shops/unapproved",
+                                "/api/dine/unapproved"
                         ).hasRole("ADMIN")
 
                         // PUT (ADMIN only)
