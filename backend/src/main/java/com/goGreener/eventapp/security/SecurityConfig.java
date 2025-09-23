@@ -63,6 +63,7 @@ public class SecurityConfig {
 
                         //GET (ADMIN only)
                         .requestMatchers(HttpMethod.GET,
+                                "/api/users",
                                 "/api/users/**",
                                 "/api/events/unapproved",
                                 "/api/volunteers/unapproved",
