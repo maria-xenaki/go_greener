@@ -9,7 +9,7 @@ const authFetch = async (url, options = {}) => {
         ...(token ? { Authorization: `Bearer ${token}` } : {})
     };
 
-    return fetch(`${API_URL}${url}`, { ...options, headers });
+    return fetch(`${API_URL}${url}`, { ...options, headers, credentials: 'include' });
 };
 
 export const verifyEmail = async (token) => {
@@ -41,7 +41,6 @@ export const login = async (username, password) => {
     };
 
     localStorage.setItem("token", token);
-
     return { token, user};
     };
 
@@ -107,14 +106,14 @@ export const sendContactForm = async (contactData) => {
 
 // Post a new event (authenticated)
 export const createEvent = async (eventData) => {
-     const token = localStorage.getItem("token");
-    if (!token) throw new Error("No token, user might not be logged in");
+    //  const token = localStorage.getItem("token");
+    // if (!token) throw new Error("No token, user might not be logged in");
 
-    const res = await fetch(`${API_URL}/api/events`, {
+    const res = await authFetch(`/api/events`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            //Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(eventData),
     });
@@ -130,7 +129,7 @@ export const fetchApprovedEvents = async () => {
 };
 
 export const fetchUnapprovedEvents = async () => {
-    const res = await fetch(`${API_URL}/api/events/unapproved`);
+    const res = await authFetch(`/api/events/unapproved`);
     if (!res.ok) throw new Error("Failed to fetch unapproved events");
     return res.json();
 };
@@ -149,7 +148,7 @@ export const deleteEvent = async (id) => {
 export const updateEvent = async(id, payload) => {
     const res = await authFetch(`/api/events/${id}`, {
         method: "PUT",
-        //headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
     });
 
@@ -179,7 +178,7 @@ export const createEntity = async (type, data) => {
   const token = localStorage.getItem("token");
   if (!token) throw new Error("No token, user might not be logged in");
   
-  let endpoint = `${API_URL}/api/`;
+  let endpoint = `/api/`;
 
   switch(type) {
     case "event": endpoint += "events"; break;
@@ -189,11 +188,11 @@ export const createEntity = async (type, data) => {
     default: throw new Error("Unknown entity type");
   }
 
-  const response = await fetch(endpoint, {
+  const response = await authFetch(endpoint, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("token") || ""}`
+      //Authorization: `Bearer ${localStorage.getItem("token") || ""}`
     },
     body: JSON.stringify(data)
   });
@@ -237,7 +236,7 @@ export const deleteVolunteer = async (id) => {
 export const updateVolunteer = async (id, payload) => {
   const res = await authFetch(`/api/volunteers/${id}`, {
     method: "PUT",
-    //headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   });
   if (!res.ok) throw new Error("Failed to update volunteer");
@@ -274,7 +273,7 @@ export const deleteShop = async (id) => {
 export const updateShop = async(id, payload) => {
     const res = await authFetch(`/api/shops/${id}`, {
         method: "PUT",
-        //headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
     });
 
