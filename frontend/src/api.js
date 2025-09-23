@@ -149,7 +149,7 @@ export const deleteEvent = async (id) => {
 export const updateEvent = async(id, payload) => {
     const res = await authFetch(`/api/events/${id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        //headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
     });
 
@@ -160,14 +160,14 @@ export const updateEvent = async(id, payload) => {
 
 //USERS
 export const fetchAllUsers = async () => {
-    const res = await authFetch(`/users`);
+    const res = await authFetch(`/api/users`);
     if (!res.ok) throw new Error("Failed to fetch users");
     return res.json();
 };
 
 // Disable-enable user
 export const toggleUserEnabled = async (id) => {
-    const res = await authFetch(`/users/${id}/toggle-enabled`, {
+    const res = await authFetch(`/api/users/${id}/toggle-enabled`, {
         method: "PUT"
     });
     if (!res.ok) throw new Error("Failed to toggle user");
@@ -216,7 +216,7 @@ export const fetchApprovedVolunteers = async () => {
 
 export const fetchUnapprovedVolunteers = async () => {
   const token = localStorage.getItem("token");
-  const res = await fetch(`${API_URL}/api/volunteers/unapproved`, {
+  const res = await authFetch(`/api/volunteers/unapproved`, {
     headers: { Authorization: `Bearer ${token}` },
   });
   if (!res.ok) throw new Error("Failed to fetch unapproved Volunteer");
@@ -237,7 +237,7 @@ export const deleteVolunteer = async (id) => {
 export const updateVolunteer = async (id, payload) => {
   const res = await authFetch(`/api/volunteers/${id}`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
+    //headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   });
   if (!res.ok) throw new Error("Failed to update volunteer");
@@ -246,15 +246,15 @@ export const updateVolunteer = async (id, payload) => {
 
 // SHOPS
 export const fetchApprovedShops = async () => {
-  const res = await authFetch(`/api/shops/approved`);
+  const res = await fetch(`${API_URL}/api/shops/approved`);
   if (!res.ok) throw new Error("Failed to fetch approved shops");
   return res.json();
 };
 
 export const fetchUnapprovedShops = async () => {
-  const token = localStorage.getItem("token");
+  //const token = localStorage.getItem("token");
   const res = await authFetch(`/api/shops/unapproved`, {
-    headers: { Authorization: `Bearer ${token}` },
+    //headers: { Authorization: `Bearer ${token}` },
   });
   if (!res.ok) throw new Error("Failed to fetch unapproved shops");
   return res.json();
@@ -274,7 +274,7 @@ export const deleteShop = async (id) => {
 export const updateShop = async(id, payload) => {
     const res = await authFetch(`/api/shops/${id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        //headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
     });
 
@@ -284,15 +284,15 @@ export const updateShop = async(id, payload) => {
 
 // DINING
 export const fetchApprovedDine = async () => {
-  const res = await authFetch(`/api/dine/approved`);
+  const res = await fetch(`${API_URL}/api/dine/approved`);
   if (!res.ok) throw new Error("Failed to fetch approved dine");
   return res.json();
 };
 
 export const fetchUnapprovedDine = async () => {
-  const token = localStorage.getItem("token");
+  //const token = localStorage.getItem("token");
   const res = await authFetch(`/api/dine/unapproved`, {
-    headers: { Authorization: `Bearer ${token}` },
+    //headers: { Authorization: `Bearer ${token}` },
   });
   if (!res.ok) throw new Error("Failed to fetch unapproved dining");
   return res.json();
@@ -313,7 +313,7 @@ export const updateDine = async (id, payload) => {
     method: "PUT",
     headers: { 
       "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("token") || ""}`
+      //Authorization: `Bearer ${localStorage.getItem("token") || ""}`
     },
     body: JSON.stringify(payload)
   });
