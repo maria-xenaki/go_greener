@@ -51,6 +51,7 @@ public class SecurityConfig {
                                 "/api/shops/approved",
                                 "/api/dine/approved"
                         ).permitAll()
+
                         .requestMatchers(HttpMethod.POST, "/api/contact").permitAll()
 
                         // POST authenticated
@@ -107,7 +108,9 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of(
                 "http://localhost:3000",
-                "https://go-greener-app.onrender.com"));
+                "https://gogreener.gr",
+                "https://www.gogreener.gr"
+        ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);

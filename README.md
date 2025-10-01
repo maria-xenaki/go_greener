@@ -3,7 +3,7 @@
 Full stack website with eco-friendly content. 
 Visitors view posts (events, volunteer, shop, dine), which are posted by users and approved by admins.
 
-## Visit live @ https://go-greener-app.onrender.com
+## Visit live @ https://gogreener.gr
 
 ## Hosted by render (java springboot and react (bundle)) and supabase (postgresql).
 You may experience website disconnect due to use of free version of hosts.
