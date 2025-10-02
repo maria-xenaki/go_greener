@@ -1,4 +1,4 @@
-const API_URL = 'https://go-greener-app.onrender.com';
+const API_URL = 'https://gogreener.gr';
 
 // Send authenticated request
 const authFetch = async (url, options = {}) => {

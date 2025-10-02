@@ -15,10 +15,10 @@ const eventLink = user ? "/add-something-green" : "/login";
 
 
 const carouselItems = [
-  { src: "/calendar.jpg", link: "/events", alt: "find Green Events"},
-  { src: "/volunteer.jpg", link: "/volunteer", alt: "find Green Volunteering" },
-  { src: "/shop.jpg", link: "/shop", alt: "find Green Shops" },
-  { src: "/dine.jpg", link: "/dine", alt: "find Green Dining" },
+  { src: "/calendar.jpg", link: "/events", alt: "Green Events"},
+  { src: "/volunteer.jpg", link: "/volunteer", alt: "Volunteer Green" },
+  { src: "/shop.jpg", link: "/shop", alt: "Shop Green" },
+  { src: "/dine.jpg", link: "/dine", alt: "Dine Green" },
   { src: "/new.jpg", link: eventLink, alt: "Add something Green" },
 ];
 
@@ -75,45 +75,36 @@ const ImageCarousel = () => (
 
   return (
     <>
-    <Container fluid className="d-flex justify-content-center mt-5">
-      <Row className="w-100" style={{ maxWidth: "1000px", position: "relative" }}>
-        {/* Image Section */}
-        <Col xs={12}>
-          <img
-            src="/seedling.jpg"
-            alt="seedling"
-            style={{
-              width: "100%",
-              height: "400px",
-              objectFit: "cover",
-              borderRadius: "12px",
-            }}
-          />
-
-      {/* Text on left side */}
+      {/* Overlay text (now positioned relative to the banner in Layout) */}
       <div
+        
         style={{
           position: "absolute",
           top: "50%",
           left: "5%",
           transform: "translateY(-50%)",
           textAlign: "left",
-          color: "white", 
+          color: "white",
+          zIndex: 2
         }}
       >
-        <h1><strong>LET’S MAKE OUR PLANET</strong></h1>
-        <h1 className="text-light"><strong>GREENER</strong></h1>
+        <Link to="/about" style={{textDecoration:"none"}}>
+          <h1 className="text-light">
+            <strong>LET’S MAKE OUR PLANET</strong>
+          </h1>
+          <h1 className="text-light">
+            <strong>GREENER</strong>
+          </h1>
+        </Link>
       </div>
-    </Col>
-  </Row>
-</Container>
-
 
       {/* Text + Carousel */}
-      <Container fluid className="mt-3">
-        <Row className="p-3 w-100" style={{ maxWidth: "1200px", margin: "0 auto" }}>
+      <Container fluid className="mt-5">
+        <Row
+          className="p-3 w-100"
+          style={{ maxWidth: "1200px", margin: "0 auto" }}
+        >
           <Col xs={12} className="text-center">
-            <h3 className="text-success fw-bold">Do you want to... ?</h3>
             <ImageCarousel />
           </Col>
         </Row>

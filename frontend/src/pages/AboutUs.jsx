@@ -1,17 +1,50 @@
 import '../App';
 import { Link } from "react-router-dom";
+import { Container, Row, Col, Image } from "react-bootstrap";
+
+const data = [
+    { img: "/calendar.jpg", link: "/events", alt: "Green Events", text: "Discover eco-friendly events to attend or volunteer and make our planet Greener!" },
+    { img: "/volunteer.jpg", link: "/volunteer", alt: "Green Volunteering", text: "Discover volunteering opportunities!" },
+     { img: "/shop.jpg", link: "/shops", alt: "Green Shops", text: "Shop sustainably!" },
+     { img: "/dine.jpg", link: "/dine", alt: "Green Dine", text: "Taste the greener side of dining!" },
+     { img: "/new.jpg", link: "/add-something-green", alt: "Add something green", text: "And SHARE you green findings with the Green community!" }
+]
 
 const AboutUs = () => {
     return (
       <div style={{ textAlign: "center", marginTop: "0.5rem" }}>
             <div style={{ padding: '2rem' }}>
-                <p>This space was created from the need to find ways to contribute to making our planet a better place.</p>
-                <p>You can find all kind of <Link to="/events">events</Link> that help turn our planet greener, ways to <Link to="/volunteer">volunteer</Link> , places to <Link to="/shop">shop</Link> and <Link to="/dine">eat</Link>.</p>
-                <p> And you are <i>more</i> than welcome to <Link to="/add-something-green">make your own contributions!</Link></p>
-                <p>Let us know of any events, as well as places to volunteer, shop or eat greener, that you came across.</p>
-                <p><i>It doesn't even have to be your event! It could be anything you found that you don't see already registered on this site.</i></p>
-                <p>And remember! <b>SPREAD THE WORD!</b></p>
-                </div>
+                <p>Do you want to have a Greener lifestyle?</p>
+
+                <Container className="my-4">
+                    {data.map((item, index) => (
+                        <Link to={item.link}
+                              className="text-decoration-none text-dark"  
+                        >
+                            <Row key={index} className="mb-4 align-items-center">
+                            {/* Left Column - Picture */}
+                                <Col xs={12} md={3}>
+                                    <Image
+                                    src={item.img}
+                                    alt={`row-${index + 1}`}
+                                    fluid
+                                    rounded
+                                    />
+                                </Col>
+
+                            {/* Right Column - Text */}
+                                <Col xs={12} md={9}>
+                                    <p><strong>{item.text}</strong></p>
+                                </Col>
+                            </Row>
+                        </Link>
+                    ))}
+                </Container>
+
+                <p><i><strong>GoGreener.gr is your guide to living a greener lifestyle! <br/>
+                Discover eco-friendly events, volunteering opportunities, sustainable shops and restaurants— and even share your own green findings with the community. <br/>
+                Together, let’s spread the word and make a difference!</strong></i></p>
+            </div>
         </div>
     );
 }

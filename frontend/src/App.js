@@ -25,7 +25,7 @@ function App() {
         <Header className="header"/>
         <main>
           <Routes>
-              <Route path = "/" element={<Layout title="Welcome to GoGreener"><HomePage/></Layout>} />
+              <Route path = "/" element={<Layout title="Welcome to GoGreener" banner="/seedling.jpg"><HomePage/></Layout>} />
               <Route path = "/events" element={<Layout title="Events"><EventsPage/></Layout>} />
               <Route path = "/volunteer" element={<Layout title="Volunteer"><VolunteerPage/></Layout>} />
               <Route path = "/shop" element={<Layout title="Shop"><ShopPage/></Layout>} />
@@ -38,7 +38,7 @@ function App() {
               <Route path = "/login" element={<Layout title="Login"><AuthPage/></Layout>} />
               <Route path = "/register" element={<Layout title="Sign up"><RegisterForm/></Layout>} />
                <Route path = "/admin-events" element={<Layout title="Manage Posts"><AdminEventsPage/></Layout>} />
-              <Route path = "/admin-users" element={<Layout title="Manage Users"><AdminUsersPage/></Layout>} />
+              <Route path = "/admin-posts" element={<Layout title="Manage Users"><AdminUsersPage/></Layout>} />
               <Route path = "/forgot-password" element={<Layout title="Reset Password"><ResetPasswordForm/></Layout>} />
               <Route path = "/reset-password" element={<Layout title="Reset Password"><ResetPasswordForm/></Layout>} />
           </Routes>

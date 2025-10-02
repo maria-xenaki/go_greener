@@ -8,8 +8,8 @@
   { "id": 7, "name": { "el": "Πάτρα", "en": "Patras" } },
   { "id": 8, "name": { "el": "Ηράκλειο", "en": "Heraklion" } },
   { "id": 9, "name": { "el": "Φλώρινα", "en": "Florina" } },
-  { "id": 10, "name": { "el": "Χαλάνδρι", "en": "Halandri" } },
+  { "id": 10, "name": { "el": "Χαλάνδρι", "en": "Halandri" } }, 
+  { "id": 13, "name": { "el": "'Ολυμπος'", "en": "mt. Olympos" }},
   { "id": 11, "name": { "el": "'Αλλη", "en": "Other" } },
-  { "id": 12, "name": { "el": "e-shop", "en": "e-shop" }},
-  { "id": 12, "name": { "el": "'Ολυμπος'", "en": "mt. Olympos" }}
+  { "id": 12, "name": { "el": "e-shop", "en": "e-shop" }}
 ]

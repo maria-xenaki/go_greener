@@ -58,7 +58,8 @@ const Header = () => {
 
        {/* Desktop Second Line */}
        <div className="d-none d-md-block">
-         <Navbar expand="md" className="py-0 w-100" style={{ backgroundColor: "transparent", borderBottom: "5px solid green" }}>
+         <Navbar expand="md" className="py-0 w-100" style={{ backgroundColor: "transparent", //borderBottom: "5px solid green" 
+         }}>
            <div className="d-flex justify-content-center align-items-center w-100 px-3">
              <Nav className="d-flex gap-4 text-dark">
                <Nav.Link
